@@ -6,13 +6,11 @@ import Home from "./src/screens/Home";
 
 export default function App() {
   return (
-    <SafeAreaView className="bg-bgDarkPrimary">
-      <ScrollView>
-        <View className="px-5  bg-bgDarkPrimary">
-          <Home />
-          <StatusBar style="light" />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView>
+      <View className="px-5 h-[812px] bg-bgDarkPrimary overflow-hidden">
+        <Home />
+        <StatusBar style="light" />
+      </View>
+    </ScrollView>
   );
 }
