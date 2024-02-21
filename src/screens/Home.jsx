@@ -12,14 +12,11 @@ const Home = ({ isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef(null);
 
-  const horizontalMargin = 20;
-  const slideWidth = 280;
-
   const sliderWidth = Dimensions.get("window").width;
-  const itemWidth = slideWidth + horizontalMargin * 2;
+  const itemWidth = sliderWidth - 20;
   const renderItem = ({ item, index }) => {
     return (
-      <View className="gap-y-4 ">
+      <View className="gap-y-4 px-5">
         <Text className="text-white text-3xl font-bold">{item.title}</Text>
         <Text className=" text-[19px] text-white">{item.description}</Text>
       </View>
