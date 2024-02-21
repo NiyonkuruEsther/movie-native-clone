@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
@@ -32,7 +32,9 @@ const Welcome = () => {
 
       <View className="px-6 gap-y-3 pb-14">
         <Button text="Watch Movie" bgColor="yellowPrimary" />
-        <Text className="text-white text-center">Sign In</Text>
+        <TouchableOpacity>
+          <Text className="text-white text-center">Sign In</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -32,10 +32,10 @@ export default function App() {
         screenOptions={{ headerShown: false }}
         initialRouteName="Home"
       >
-        <Stack.Screen name="Home">
+        {/* <Stack.Screen name="Home">
           {(props) => <Home {...props} isLoading={isLoading} />}
         </Stack.Screen>
-        <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Welcome" component={Welcome} /> */}
         <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
       <StatusBar style="light" />

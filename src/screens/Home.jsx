@@ -1,8 +1,12 @@
-import { View, Text, Dimensions, ImageBackground } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  Dimensions,
+  ImageBackground
+} from "react-native";
 import React, { useRef, useState } from "react";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
-import Carousel from "react-native-snap-carousel";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
 
@@ -17,10 +21,10 @@ const Home = ({ isLoading }) => {
   const itemWidth = sliderWidth - 20;
   const renderItem = ({ item, index }) => {
     return (
-      <View className="gap-y-4 px-5">
+      <TouchableOpacity className="gap-y-4 px-4">
         <Text className="text-white text-3xl font-bold">{item.title}</Text>
         <Text className=" text-[19px] text-white">{item.description}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
   return !isLoading ? (
@@ -35,10 +39,10 @@ const Home = ({ isLoading }) => {
       width={widthFull}
       className="h-[812px]"
     >
-      <View className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
-        <View className=" h-[60%] justify-between pb-10">
+      <TouchableOpacity className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
+        <TouchableOpacity className=" h-[60%] justify-between pb-10">
           {/* Intro text */}
-          <View className="gap-y-5">
+          {/* <TouchableOpacity className="gap-y-5">
             <Carousel
               ref={carouselRef}
               layout={"default"}
@@ -48,39 +52,39 @@ const Home = ({ isLoading }) => {
               data={Data}
               onSnapToItem={(index) => setActiveIndex(index)}
             />
-            <View className="flex-row gap-x-2 pt-2 pl-7">
+            <TouchableOpacity className="flex-row gap-x-2 pt-2 pl-7">
               {Data.map((item, index) => (
-                <View
+                <TouchableOpacity
                   key={index}
                   className={`bg-${
                     index === activeIndex ? "yellow" : "gray"
                   }Primary h-2 w-${
-                    index === activeIndex ? "14" : "6"
+                    index === activeIndex ? "14 " : "6 "
                   } rounded-full`}
-                ></View>
+                ></TouchableOpacity>
               ))}
-            </View>
-          </View>
+            </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <View className="px-7">
+          <TouchableOpacity className="px-7">
             <Button
               text="Get started"
               bgColor={"yellowPrimary"}
               onPress={() => navigation.navigate("Welcome")}
             />
-          </View>
-        </View>
-      </View>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </TouchableOpacity>
     </ImageBackground>
   ) : (
     // loader
-    <View className="px-5 h-[812px] bg-bgDarkPrimary overflow-hidden">
-      <View
+    <TouchableOpacity className="px-4 h-[812px] bg-bgDarkPrimary overflow-hidden">
+      <TouchableOpacity
         className={`h-[${heightFull}px] flex-1 justify-center items-center overflow-hidden`}
       >
         <Logo />
-      </View>
-    </View>
+      </TouchableOpacity>
+    </TouchableOpacity>
   );
 };
 
