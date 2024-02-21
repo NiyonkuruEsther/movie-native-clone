@@ -19,7 +19,7 @@ const Home = ({ isLoading }) => {
   const itemWidth = slideWidth + horizontalMargin * 2;
   const renderItem = ({ item, index }) => {
     return (
-      <View className="gap-y-4">
+      <View className="gap-y-4 ">
         <Text className="text-white text-3xl font-bold">{item.title}</Text>
         <Text className=" text-[19px] text-white">{item.description}</Text>
       </View>
@@ -37,7 +37,7 @@ const Home = ({ isLoading }) => {
       width={widthFull}
       className="h-[812px]"
     >
-      <View className="bg-bgDarkSecondary flex-1 opacity-70 justify-end px-5">
+      <View className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
         <View className=" h-[60%] justify-between pb-10">
           {/* Intro text */}
           <View className="gap-y-5">
@@ -64,7 +64,9 @@ const Home = ({ isLoading }) => {
             </View>
           </View>
 
-          <Button text="Get started" bgColor={"yellowPrimary"} />
+          <View className="px-7">
+            <Button text="Get started" bgColor={"yellowPrimary"} />
+          </View>
         </View>
       </View>
     </ImageBackground>
