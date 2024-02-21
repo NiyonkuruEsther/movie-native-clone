@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import Carousel from "react-native-snap-carousel";
 import { Data } from "../data";
+import { useNavigation } from "@react-navigation/core";
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
@@ -11,7 +12,7 @@ export const widthFull = Dimensions.get("window").width;
 const Home = ({ isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef(null);
-
+  const navigation = useNavigation();
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth - 20;
   const renderItem = ({ item, index }) => {
@@ -62,7 +63,11 @@ const Home = ({ isLoading }) => {
           </View>
 
           <View className="px-7">
-            <Button text="Get started" bgColor={"yellowPrimary"} />
+            <Button
+              text="Get started"
+              bgColor={"yellowPrimary"}
+              onPress={() => navigation.navigate("Welcome")}
+            />
           </View>
         </View>
       </View>
