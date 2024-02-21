@@ -3,7 +3,7 @@ import React from "react";
 import Logo from "../components/Logo";
 import Button from "../components/Button";
 
-const Welcome = () => {
+const Welcome = ({ navigation }) => {
   return (
     <View className="bg-bgDarkPrimary flex-1 justify-between">
       <View className={``}>
@@ -32,7 +32,7 @@ const Welcome = () => {
 
       <View className="px-6 gap-y-3 pb-14">
         <Button text="Watch Movie" bgColor="yellowPrimary" />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text className="text-white text-center">Sign In</Text>
         </TouchableOpacity>
       </View>

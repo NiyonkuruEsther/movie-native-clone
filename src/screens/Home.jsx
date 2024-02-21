@@ -9,6 +9,7 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
+// import Carousel from "re"
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
