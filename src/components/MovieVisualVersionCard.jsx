@@ -12,9 +12,9 @@ const MovieVisualVersionCard = ({
       key={index}
       source={{ uri: item.url }}
       resizeMode="cover"
-      className={`justify-between mr-4 ${imgSize} p-3 ${
-        horizontalDisplay && index === 0 && "ml-5"
-      }`}
+      className={`justify-between ${
+        horizontalDisplay && "mr-4"
+      } ${imgSize} p-3 ${horizontalDisplay && index === 0 && "ml-5"}`}
       borderRadius={12}
     >
       <View className={`self-end bg-yellowPrimary rounded-md px-2 py-1`}>

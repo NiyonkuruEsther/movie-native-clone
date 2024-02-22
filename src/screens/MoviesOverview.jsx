@@ -87,7 +87,11 @@ const MoviesOverview = ({ navigation }) => {
           onEndReached={loadMoreDataNavData}
         />
       </View>
-      <ScrollView className="flex-1" style={{ height: heightFull }}>
+      <ScrollView
+        className="flex-1"
+        style={{ height: heightFull }}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Header */}
         <ScrollView>
           <View className="bg-bgDarkPrimary flex-1 pt-5">
@@ -124,15 +128,31 @@ const MoviesOverview = ({ navigation }) => {
             {/* Gallery 2 */}
             <View className="">
               <MoviesOverviewlist
-                data={movies}
+                data={[...movies].reverse()}
                 horizontalDisplay={true}
                 imgSize={"w-[60vw] h-[20vh]"}
-                title={"New Releases"}
+                title={"Made for you"}
                 viewMore={true}
                 loadMoreData={loadMoreDataMovies}
               />
             </View>
+
+          
           </View>
+            {/* Gallery 3 */}
+            <View
+              className=" flex-row flex-1 items-center justify-center"
+              style={{ width: widthFull }}
+            >
+              <MoviesOverviewlist
+                data={[...MoviesData].reverse()}
+                horizontalDisplay={false}
+                imgSize={`w-[90vw] h-[30vh] mb-5`}
+                title={"Made for you"}
+                viewMore={true}
+                loadMoreData={loadMoreDataMovies}
+              />
+            </View>
         </ScrollView>
       </ScrollView>
 

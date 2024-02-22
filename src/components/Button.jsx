@@ -4,7 +4,15 @@ import React, { ElementType } from "react";
 const Button = ({ icon, bgColor, text, onPress }) => {
   return (
     <TouchableOpacity
-      className={`bg-${bgColor} rounded-lg py-3 justify-center flex-row items-center`}
+      className={` rounded-lg py-3 justify-center flex-row items-center`}
+      style={{
+        backgroundColor:
+          bgColor === "ebonyBlack"
+            ? "#080402"
+            : bgColor === "yellowPrimary"
+            ? "#FDD031"
+            : "white"
+      }}
       onPress={onPress}
     >
       {icon}

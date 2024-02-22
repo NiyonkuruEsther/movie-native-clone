@@ -18,23 +18,24 @@ const MoviesOverviewlist = ({
           <Text className="text-gray-400"> {viewMore && "View More"}</Text>
         </View>
       )}
-
-      <FlatList
-        data={data}
-        renderItem={({ item, index }) => (
-          <MovieVisualVersion
-            item={item}
-            imgSize={imgSize}
-            index={index}
-            horizontalDisplay={horizontalDisplay}
-          />
-        )}
-        horizontal={horizontalDisplay}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={!horizontalDisplay}
-        onEndReached={loadMoreData}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <View className="justify-center items-center">
+        <FlatList
+          data={data}
+          renderItem={({ item, index }) => (
+            <MovieVisualVersion
+              item={item}
+              imgSize={imgSize}
+              index={index}
+              horizontalDisplay={horizontalDisplay}
+            />
+          )}
+          horizontal={horizontalDisplay}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          onEndReached={loadMoreData}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
     </View>
   );
 };
