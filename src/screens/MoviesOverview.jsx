@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   TouchableHighlight,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
 import React, { useState } from "react";
 import { MoviesData } from "../data";
@@ -14,6 +15,7 @@ import { heightFull, widthFull } from "./Home";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
 import Logo from "../components/Logo";
+import MoviesOverviewlist from "../components/MoviesOverviewList";
 
 const MoviesOverview = () => {
   const [data, setData] = useState([
@@ -36,7 +38,7 @@ const MoviesOverview = () => {
 
   const [movies, setMovies] = useState(MoviesData);
 
-  const loadMoreDataClothes = () => {
+  const loadMoreDataMovies = () => {
     setMovies([...movies, ...movies]);
   };
 
@@ -106,33 +108,25 @@ const MoviesOverview = () => {
             onEndReached={loadMoreData}
           />
           {/* Gallery */}
-          <View className="px-5 gap-y-5 flex-1 pt-5 ">
-            <View className="flex-row justify-between items-center">
-              <Text className="font-bold text-white text-2xl">
-                New Releases
-              </Text>
-              <Text className="text-gray-400"> View More</Text>
-            </View>
-            <FlatList
-              // className="gap-4 bg-white"
+          <View className="">
+            <MoviesOverviewlist
               data={movies}
-              renderItem={({ item, index }) => (
-                <ImageBackground
-                  key={index}
-                  source={{ uri: item.url }}
-                  resizeMode="cover"
-                  className="justify-between mr-4 w-[60vw] h-[20vh] p-3"
-                  borderRadius={12}
-                >
-                  <View className=" self-end bg-yellowPrimary rounded-md px-2 py-1">
-                    <Text className="font-medium">{item.visualVersion}</Text>
-                  </View>
-                </ImageBackground>
-              )}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              onEndReached={loadMoreDataClothes}
-              keyExtractor={(item, index) => index.toString()}
+              horizontalDisplay={true}
+              imgSize={"w-[60vw] h-[20vh]"}
+              title={"New Releases"}
+              viewMore={true}
+              loadMoreData={loadMoreDataMovies}
+            />
+          </View>
+          {/* Gallery 2 */}
+          <View className="">
+            <MoviesOverviewlist
+              data={movies}
+              horizontalDisplay={true}
+              imgSize={"w-[60vw] h-[20vh]"}
+              title={"New Releases"}
+              viewMore={true}
+              loadMoreData={loadMoreDataMovies}
             />
           </View>
         </View>
@@ -146,7 +140,8 @@ const MoviesOverview = () => {
         <Feather name="home" size={25} color="white" />
         <Feather name="search" size={25} color="white" />
         <Feather name="folder" size={25} color="white" />
-        <Feather name="folder" size={25} color="white" />
+        <Image source={require("../../assets/menu.png")} />
+        {/* <Feather name="folder" size={25} color="white" /> */}
       </View>
     </SafeAreaView>
   );
