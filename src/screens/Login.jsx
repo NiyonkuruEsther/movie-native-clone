@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
       <KeyboardAvoidingView behavior="position" className={`flex-1`}>
         <View className={`justify-between h-full `}>
           <View className="flex-row gap-5 items-center">
-            <TouchableOpacity onPress={() => navigation.push("Welcome")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
               <AntDesign name="arrowleft" color="#FDD031" size={30} />
             </TouchableOpacity>
             <Text className="text-white font-bold text-2xl">Login</Text>
@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("SignUp")}
+              onPress={() => navigation.push("SignUp")}
               className="p-0"
             >
               <Text className="text-yellowPrimary">Sign Up</Text>

@@ -71,7 +71,7 @@ const Home = ({ isLoading }) => {
             <Button
               text="Get started"
               bgColor={"yellowPrimary"}
-              onPress={() => navigation.navigate("Welcome")}
+              onPress={() => navigation.push("Welcome")}
             />
           </TouchableOpacity>
         </TouchableOpacity>

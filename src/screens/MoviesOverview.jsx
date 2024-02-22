@@ -17,7 +17,7 @@ import Feather from "react-native-vector-icons/Feather";
 import Logo from "../components/Logo";
 import MoviesOverviewlist from "../components/MoviesOverviewList";
 
-const MoviesOverview = () => {
+const MoviesOverview = ({ navigation }) => {
   const [data, setData] = useState([
     "Popular Today",
     "Marvel",
@@ -47,87 +47,93 @@ const MoviesOverview = () => {
   };
 
   return (
-    <SafeAreaView className={` bg-ebonyBlack relative h-[${heightFull}px]`}>
-      <ScrollView className="flex-1" style={{ height: heightFull }}>
-        {/* Header */}
-        <View className="px-5 pt-4">
-          <View className="flex-row justify-between items-center">
+    <SafeAreaView
+      className={` bg-bgDarkSecondary relative h-[${heightFull}px]`}
+    >
+      <View className="pl-5 pt-4">
+        <View className="flex-row justify-between items-center">
+          <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
             <Logo style={"text-2xl"} />
-            <View className="flex-row gap-x-3">
-              <Feather name="bookmark" size={25} color="white" />
-              <Feather name="bell" size={25} color="white" />
-            </View>
+          </TouchableOpacity>
+          <View className="flex-row gap-x-3 pr-5">
+            <Feather name="bookmark" size={25} color="white" />
+            <Feather name="bell" size={25} color="white" />
           </View>
-          <FlatList
-            ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
-            data={navData}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                className={`
+        </View>
+        <FlatList
+          ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
+          data={navData}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              className={`
             ${
               index === 0 &&
               "text-yellowPrimary border-b-2 pb-2 border-yellowPrimary"
             } pt-4`}
-                underlayColor={"white"}
+              underlayColor={"white"}
+            >
+              <Text
+                className={` ${
+                  index === 0 ? "text-yellowPrimary " : "text-white"
+                } text-base`}
               >
-                <Text
-                  className={` ${
-                    index === 0 ? "text-yellowPrimary " : "text-white"
-                  } text-base`}
-                >
-                  <Text>{item}</Text>
-                </Text>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            onEndReached={loadMoreDataNavData}
-          />
-        </View>
-        <View className="bg-bgDarkPrimary flex-1 pt-5">
-          {/* Tags */}
+                <Text>{item}</Text>
+              </Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          onEndReached={loadMoreDataNavData}
+        />
+      </View>
+      <ScrollView className="flex-1" style={{ height: heightFull }}>
+        {/* Header */}
+        <ScrollView>
+          <View className="bg-bgDarkPrimary flex-1 pt-5">
+            {/* Tags */}
 
-          <FlatList
-            className=" h-auto"
-            data={data}
-            renderItem={({ item, index }) => (
-              <View
-                className={`border border-gray-400 rounded-lg h-auto justify-center ${
-                  index === 0 ? "ml-5" : "ml-3"
-                } `}
-              >
-                <Text className={` p-3 text-white `}>{item}</Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            onEndReached={loadMoreData}
-          />
-          {/* Gallery */}
-          <View className="">
-            <MoviesOverviewlist
-              data={movies}
-              horizontalDisplay={true}
-              imgSize={"w-[60vw] h-[20vh]"}
-              title={"New Releases"}
-              viewMore={true}
-              loadMoreData={loadMoreDataMovies}
+            <FlatList
+              className=" h-auto"
+              data={data}
+              renderItem={({ item, index }) => (
+                <View
+                  className={`border border-gray-400 rounded-lg h-auto justify-center ${
+                    index === 0 ? "ml-5" : "ml-3"
+                  } `}
+                >
+                  <Text className={` p-3 text-white `}>{item}</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              onEndReached={loadMoreData}
             />
+            {/* Gallery */}
+            <View className="">
+              <MoviesOverviewlist
+                data={movies}
+                horizontalDisplay={true}
+                imgSize={"w-[60vw] h-[20vh]"}
+                title={"New Releases"}
+                viewMore={true}
+                loadMoreData={loadMoreDataMovies}
+              />
+            </View>
+            {/* Gallery 2 */}
+            <View className="">
+              <MoviesOverviewlist
+                data={movies}
+                horizontalDisplay={true}
+                imgSize={"w-[60vw] h-[20vh]"}
+                title={"New Releases"}
+                viewMore={true}
+                loadMoreData={loadMoreDataMovies}
+              />
+            </View>
           </View>
-          {/* Gallery 2 */}
-          <View className="">
-            <MoviesOverviewlist
-              data={movies}
-              horizontalDisplay={true}
-              imgSize={"w-[60vw] h-[20vh]"}
-              title={"New Releases"}
-              viewMore={true}
-              loadMoreData={loadMoreDataMovies}
-            />
-          </View>
-        </View>
+        </ScrollView>
       </ScrollView>
 
       {/* Bottom nav */}

@@ -35,7 +35,7 @@ const Welcome = ({ navigation }) => {
           bgColor="yellowPrimary"
           onPress={() => navigation.push("Movies")}
         />
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity onPress={() => navigation.push("Login")}>
           <Text className="text-white text-center">Sign In</Text>
         </TouchableOpacity>
       </View>

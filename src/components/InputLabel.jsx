@@ -26,7 +26,7 @@ const InputLabel = ({ iconName, label }) => {
         theme={{
           colors: {
             primary: "#C2C3C7",
-            color: "ebonyBlack",
+            color: "black",
             underlineColor: "transparent"
           }
         }}
