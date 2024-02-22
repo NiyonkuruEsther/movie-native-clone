@@ -29,9 +29,12 @@ const Welcome = ({ navigation }) => {
           </View>
         </View>
       </View>
-
       <View className="px-6 gap-y-3 pb-14">
-        <Button text="Watch Movie" bgColor="yellowPrimary" />
+        <Button
+          text="Watch Movie"
+          bgColor="yellowPrimary"
+          onPress={() => navigation.push("Movies")}
+        />
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text className="text-white text-center">Sign In</Text>
         </TouchableOpacity>

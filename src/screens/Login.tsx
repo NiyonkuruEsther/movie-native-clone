@@ -3,17 +3,14 @@ import {
   Text,
   KeyboardAvoidingView,
   Image,
-  ScrollView,
   TouchableOpacity
 } from "react-native";
 import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Logo from "../components/Logo";
 import InputLabel from "../components/InputLabel";
 import Button from "../components/Button";
-import Google from "../../assets/Google";
 import { heightFull } from "./Home";
 
 const Login = ({ navigation }) => {
