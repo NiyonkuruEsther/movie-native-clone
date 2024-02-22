@@ -40,7 +40,7 @@ const Home = ({ isLoading }) => {
       width={widthFull}
       className="h-[812px]"
     >
-      <TouchableOpacity className="bg-ebonyBlack flex-1 opacity-70 justify-end">
+      <TouchableOpacity className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
         <TouchableOpacity className=" h-[60%] justify-between pb-10">
           {/* Intro text */}
           {/* <TouchableOpacity className="gap-y-5">
