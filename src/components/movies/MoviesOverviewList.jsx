@@ -14,7 +14,9 @@ const MoviesOverviewlist = ({
     <View className="gap-y-5 flex-1 pt-5 ">
       {title && (
         <View className="flex-row justify-between items-center px-5">
-          <Text className="font-bold text-white text-2xl">{title}</Text>
+          <View>
+            <Text className="font-bold text-white text-2xl">{title}</Text>
+          </View>
           <Text className="text-gray-400"> {viewMore && "View More"}</Text>
         </View>
       )}

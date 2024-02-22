@@ -1,7 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import Logo from "../components/Logo";
-import Button from "../components/Button";
+import { Logo } from "../components/Layout";
+import { Button } from "../components";
+
 
 const Welcome = ({ navigation }) => {
   return (

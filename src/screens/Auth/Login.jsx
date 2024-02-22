@@ -8,12 +8,26 @@ import {
 import React from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Logo from "../components/Logo";
-import InputLabel from "../components/InputLabel";
-import Button from "../components/Button";
-import { heightFull } from "./Home";
+import { Logo } from "../../components/Layout";
+import InputLabel from "../../components/form/InputLabel";
+import Button from "../../components/Button";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginSchema } from "../../schema";
+import { heightFull } from "../Home";
 
 const Login = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: ""
+    }
+  });
   return (
     <SafeAreaView
       className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
@@ -34,13 +48,58 @@ const Login = ({ navigation }) => {
             <View className="gap-y-3">
               {/* Inputs */}
               <View className="pb-4">
-                <InputLabel iconName="email-outline" label="Email" />
-                <InputLabel iconName="lock-outline" label="Password" />
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputLabel
+                      iconName="email-outline"
+                      label="Email"
+                      onChange={onChange}
+                      value={value}
+                    />
+                  )}
+                  name="email"
+                />
+                {errors.email && (
+                  <Text className="text-red-500 pt-2">
+                    {errors.email.message}
+                  </Text>
+                )}
+
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <InputLabel
+                      iconName="lock-outline"
+                      label="Password"
+                      onChange={onChange}
+                      value={value}
+                      secureTextEntry={true}
+                    />
+                  )}
+                  name="password"
+                />
+                {errors.password && (
+                  <Text className="text-red-500 pt-2">
+                    {errors.password.message}
+                  </Text>
+                )}
+
                 <TouchableOpacity className="self-end pt-3">
                   <Text className="text-yellowPrimary">Forgot Password?</Text>
                 </TouchableOpacity>
               </View>
-              <Button bgColor="yellowPrimary" text="Login" />
+              <Button
+                bgColor="yellowPrimary"
+                text="Login"
+                onPress={handleSubmit()}
+              />
             </View>
             <View className="">
               <Text className="text-white text-[10px] text-center mb-3">

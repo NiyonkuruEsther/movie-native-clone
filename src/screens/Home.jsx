@@ -5,8 +5,8 @@ import {
   ImageBackground
 } from "react-native";
 import React, { useRef, useState } from "react";
-import Logo from "../components/Logo";
-import Button from "../components/Button";
+import { Logo } from "../components/Layout";
+import { Button } from "../components";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
 import Carousel from "react-native-snap-carousel";
@@ -16,10 +16,12 @@ export const widthFull = Dimensions.get("window").width;
 
 const Home = ({ isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentImageUrl, setCurrentImageUrl] = useState(Data[0].url);
   const carouselRef = useRef(null);
   const navigation = useNavigation();
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth - 20;
+
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity className="gap-y-4 px-4">
@@ -32,7 +34,7 @@ const Home = ({ isLoading }) => {
     // Home screen
     <ImageBackground
       source={{
-        uri: "https://www.boredpanda.com/blog/wp-content/uploads/2020/01/3-5e12ff3d9c99c__700.jpg"
+        uri: currentImageUrl
       }}
       resizeMode="cover"
       resizeMethod="scale"
@@ -40,7 +42,10 @@ const Home = ({ isLoading }) => {
       width={widthFull}
       className="h-[812px]"
     >
-      <TouchableOpacity className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
+      <TouchableOpacity
+        className="bg-bgDarkSecondary flex-1 justify-end"
+        style={{ opacity: 0.7 }}
+      >
         <TouchableOpacity className=" h-[60%] justify-between pb-10">
           {/* Intro text */}
           <TouchableOpacity className="gap-y-5">
@@ -51,7 +56,10 @@ const Home = ({ isLoading }) => {
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
               data={Data}
-              onSnapToItem={(index) => setActiveIndex(index)}
+              onSnapToItem={(index) => {
+                setActiveIndex(index);
+                setCurrentImageUrl(Data[index].url);
+              }}
             />
             <TouchableOpacity className="flex-row gap-x-2 pt-2 pl-7">
               {Data.map((item, index) => (

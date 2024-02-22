@@ -10,14 +10,14 @@ import {
   Image
 } from "react-native";
 import React, { useState } from "react";
-import { MoviesData } from "../data";
-import { heightFull, widthFull } from "./Home";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
-import Logo from "../components/Logo";
-import MoviesOverviewlist from "../components/MoviesOverviewList";
+import { MoviesData } from "../../data";
+import { heightFull } from "../Home";
+import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
 
 const MoviesOverview = ({ navigation }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [data, setData] = useState([
     "Popular Today",
     "Marvel",
@@ -65,16 +65,17 @@ const MoviesOverview = ({ navigation }) => {
           data={navData}
           renderItem={({ item, index }) => (
             <TouchableOpacity
+              onPress={() => setActiveIndex(index)}
               className={`
             ${
-              index === 0 &&
+              activeIndex === index &&
               "text-yellowPrimary border-b-2 pb-2 border-yellowPrimary"
             } pt-4`}
               underlayColor={"white"}
             >
               <Text
                 className={` ${
-                  index === 0 ? "text-yellowPrimary " : "text-white"
+                  activeIndex === index ? "text-yellowPrimary " : "text-white"
                 } text-base`}
               >
                 <Text>{item}</Text>
@@ -126,7 +127,7 @@ const MoviesOverview = ({ navigation }) => {
               />
             </View>
             {/* Gallery 2 */}
-            <View className="">
+            <View className="pb-5">
               <MoviesOverviewlist
                 data={[...movies].reverse()}
                 horizontalDisplay={true}
@@ -136,23 +137,21 @@ const MoviesOverview = ({ navigation }) => {
                 loadMoreData={loadMoreDataMovies}
               />
             </View>
-
-          
           </View>
-            {/* Gallery 3 */}
-            <View
-              className=" flex-row flex-1 items-center justify-center"
-              style={{ width: widthFull }}
-            >
-              <MoviesOverviewlist
-                data={[...MoviesData].reverse()}
-                horizontalDisplay={false}
-                imgSize={`w-[90vw] h-[30vh] mb-5`}
-                title={"Made for you"}
-                viewMore={true}
-                loadMoreData={loadMoreDataMovies}
-              />
-            </View>
+          {/* Gallery 3 */}
+          <View
+            className=" flex-row flex-1 items-center justify-center"
+            style={{ width: widthFull }}
+          >
+            <MoviesOverviewlist
+              data={[...MoviesData].reverse()}
+              horizontalDisplay={false}
+              imgSize={`w-[90vw] h-[30vh] mb-5`}
+              title={`Popular on Muvi`}
+              viewMore={true}
+              loadMoreData={loadMoreDataMovies}
+            />
+          </View>
         </ScrollView>
       </ScrollView>
 

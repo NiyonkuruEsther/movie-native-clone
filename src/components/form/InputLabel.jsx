@@ -1,15 +1,18 @@
 import { View, Text } from "react-native";
 import { TextInput } from "react-native-paper";
 import React from "react";
-import { widthFull } from "../screens/Home";
+import { widthFull } from "../../screens/Home";
 
-const InputLabel = ({ iconName, label }) => {
+const InputLabel = ({ iconName, label, secureTextEntry, onChange, value }) => {
   return (
     <View style={{ width: widthFull - 40 }}>
       <TextInput
         label={label}
         mode="flat"
         textColor="white"
+        secureTextEntry={secureTextEntry}
+        onChangeText={onChange}
+        value={value}
         right={
           <TextInput.Icon
             icon={iconName}

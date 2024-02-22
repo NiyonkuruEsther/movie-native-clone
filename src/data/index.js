@@ -1,20 +1,22 @@
 export const Data = [
   {
+    url: "https://www.boredpanda.com/blog/wp-content/uploads/2020/01/3-5e12ff3d9c99c__700.jpg",
     title: "Enjoy your favorite movie anywhere",
-    description:
-      "Browse through our collections and discover hundreds of movies and series that you'll love!"
+    description: "Browse through our collections and discover hundreds!"
   },
   {
+    url: "https://image.tmdb.org/t/p/w300/7yFH4kmO5NWj4c9eGUxPUey7bra.jpg",
     title: "The best of HD that you can't find",
     description:
       "Browse through our collections and discover hundreds of movies and series that you'll love!"
   },
   {
+    url: "https://image.tmdb.org/t/p/w300/mEcCz4Nzw57wJIXo6g69q9NUQih.jpg",
     title: "Movies from around the world here",
-    description:
-      "Browse through our collections and discover hundreds of movies and series that you'll love!"
+    description: "Browse through our collections and series that you'll love!"
   },
   {
+    url: "https://image.tmdb.org/t/p/w300/nDolbak2UESGmzAfVqwpXUnAfmv.jpg",
     title: "All the genres of your favorite kind",
     description:
       "Browse through our collections and discover hundreds of movies and series that you'll love!"
