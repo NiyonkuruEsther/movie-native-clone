@@ -9,7 +9,7 @@ import Logo from "../components/Logo";
 import Button from "../components/Button";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
-// import Carousel from "re"
+import Carousel from "react-native-snap-carousel";
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
@@ -43,7 +43,7 @@ const Home = ({ isLoading }) => {
       <TouchableOpacity className="bg-bgDarkSecondary flex-1 opacity-70 justify-end">
         <TouchableOpacity className=" h-[60%] justify-between pb-10">
           {/* Intro text */}
-          {/* <TouchableOpacity className="gap-y-5">
+          <TouchableOpacity className="gap-y-5">
             <Carousel
               ref={carouselRef}
               layout={"default"}
@@ -57,15 +57,16 @@ const Home = ({ isLoading }) => {
               {Data.map((item, index) => (
                 <TouchableOpacity
                   key={index}
-                  className={`bg-${
-                    index === activeIndex ? "yellow" : "gray"
-                  }Primary h-2 w-${
-                    index === activeIndex ? "14 " : "6 "
-                  } rounded-full`}
+                  style={{
+                    backgroundColor: index === activeIndex ? "yellow" : "gray",
+                    width: index === activeIndex ? 50 : 20,
+                    height: 6
+                  }}
+                  className={`rounded-full`}
                 ></TouchableOpacity>
               ))}
             </TouchableOpacity>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
           <TouchableOpacity className="px-7">
             <Button
