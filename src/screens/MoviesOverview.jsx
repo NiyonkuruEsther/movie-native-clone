@@ -47,9 +47,7 @@ const MoviesOverview = () => {
   };
 
   return (
-    <SafeAreaView
-      className={` bg-bgDarkSecondary relative h-[${heightFull}px]`}
-    >
+    <SafeAreaView className={` bg-ebonyBlack relative h-[${heightFull}px]`}>
       <ScrollView className="flex-1" style={{ height: heightFull }}>
         {/* Header */}
         <View className="px-5 pt-4">

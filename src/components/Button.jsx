@@ -9,7 +9,7 @@ const Button = ({ icon, bgColor, text, onPress }) => {
     >
       {icon}
       <Text
-        className={`text-center ${bgColor === "black" && "text-white"} ${
+        className={`text-center ${bgColor === "ebonyBlack" && "text-white"} ${
           icon && "pl-3"
         }`}
       >

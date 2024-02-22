@@ -54,7 +54,7 @@ const SignUp = ({ navigation }) => {
             </Text>
             <View className="mb-3">
               <Button
-                bgColor="black"
+                bgColor="ebonyBlack"
                 text="Sign Up with Apple"
                 icon={<AntDesign name="apple1" color="white" size={20} />}
               />
