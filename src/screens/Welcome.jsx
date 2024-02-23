@@ -3,12 +3,11 @@ import React from "react";
 import { Logo } from "../components/Layout";
 import { Button } from "../components";
 
-
 const Welcome = ({ navigation }) => {
   return (
     <View className="bg-bgDarkPrimary flex-1 justify-between">
       <View className={``}>
-        <View className="bg-bgDarkSecondary pt-16 pb-4">
+        <View className="bg-[#1F2123] pt-16 pb-4">
           <Logo style="text-2xl" />
         </View>
         <View className={`h-[55vh] justify-around`}>

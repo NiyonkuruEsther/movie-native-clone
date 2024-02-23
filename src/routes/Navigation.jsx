@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { Home, Welcome } from "../screens";
 import { SignUp, Login } from "../screens/Auth";
-import MoviesOverviewlist from "../components/movies/MoviesOverviewList";
+import { MoviesOverview } from "../screens/movies";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +34,7 @@ const Navigation = () => {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Movies" component={MoviesOverviewlist} />
+        <Stack.Screen name="Movies" component={MoviesOverview} />
       </Stack.Navigator>
       <StatusBar style="light" />
     </NavigationContainer>

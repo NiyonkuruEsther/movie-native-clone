@@ -6,13 +6,40 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import React from "react";
+import React, { useRef, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "../../components";
 import { heightFull } from "../Home";
+import { Logo } from "../../components/Layout";
+import InputLabel from "../../components/form/InputLabel";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SignUpSchema } from "../../schema";
 
 const SignUp = ({ navigation }) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset
+  } = useForm({
+    resolver: yupResolver(SignUpSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirm_password: ""
+    }
+  });
+
+  const onSubmit = () => {
+    reset({
+      email: "",
+      password: "",
+      confirm_password: ""
+    });
+  };
   return (
     <SafeAreaView
       className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
@@ -33,11 +60,74 @@ const SignUp = ({ navigation }) => {
             {/* Inputs */}
 
             <View className="pb-4">
-              <InputLabel iconName="email-outline" label="Email" />
-              <InputLabel iconName="lock-outline" label="Password" />
-              <InputLabel iconName="lock-outline" label="Confirm-Password" />
+              <Controller
+                control={control}
+                rules={{
+                  required: true
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <InputLabel
+                    iconName="email-outline"
+                    label="Email"
+                    onChange={onChange}
+                    value={value}
+                  />
+                )}
+                name="email"
+              />
+              {errors.email && (
+                <Text className="text-red-500 pt-2">
+                  {errors.email.message}
+                </Text>
+              )}
+              <Controller
+                control={control}
+                rules={{
+                  required: true
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <InputLabel
+                    iconName="lock-outline"
+                    label="Password"
+                    onChange={onChange}
+                    value={value}
+                    secureTextEntry={true}
+                  />
+                )}
+                name="password"
+              />
+              {errors.password && (
+                <Text className="text-red-500 pt-2">
+                  {errors.password.message}
+                </Text>
+              )}
+              <Controller
+                control={control}
+                rules={{
+                  required: true
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <InputLabel
+                    iconName="lock-outline"
+                    label="Confirm-Password"
+                    onChange={onChange}
+                    value={value}
+                    secureTextEntry={true}
+                  />
+                )}
+                name="confirm_password"
+              />
+              {errors.confirm_password && (
+                <Text className="text-red-500 pt-2">
+                  {errors.confirm_password.message}
+                </Text>
+              )}
             </View>
-            <Button bgColor="yellowPrimary" text="Sign Up" />
+            <Button
+              bgColor="yellowPrimary"
+              text="Sign Up"
+              onPress={handleSubmit(onSubmit)}
+            />
             <Text className="text-white text-xs text-center">
               By signing up I accept{" "}
               <Text className="text-yellowPrimary">terms of use</Text> and{" "}

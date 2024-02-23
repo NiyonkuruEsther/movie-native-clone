@@ -13,8 +13,9 @@ import React, { useState } from "react";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
 import { MoviesData } from "../../data";
-import { heightFull } from "../Home";
+import { heightFull, widthFull } from "../Home";
 import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
+import { Logo } from "../../components/Layout";
 
 const MoviesOverview = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -48,7 +49,7 @@ const MoviesOverview = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      className={` bg-bgDarkSecondary relative h-[${heightFull}px]`}
+      className={` bg-[#1F2123] relative h-[${heightFull}px]`}
     >
       <View className="pl-5 pt-4">
         <View className="flex-row justify-between items-center">
@@ -160,10 +161,10 @@ const MoviesOverview = ({ navigation }) => {
         className=" flex-row justify-between bg-bgDarkPrimary absolute bottom-0 px-5 py-[4vh]"
         style={{ width: widthFull }}
       >
-        <Feather name="home" size={25} color="white" />
+        <Feather name="home" size={25} color="#FDD031" />
         <Feather name="search" size={25} color="white" />
         <Feather name="folder" size={25} color="white" />
-        <Image source={require("../../assets/menu.png")} />
+        <Image source={require("../../../assets/menu.png")} />
         {/* <Feather name="folder" size={25} color="white" /> */}
       </View>
     </SafeAreaView>

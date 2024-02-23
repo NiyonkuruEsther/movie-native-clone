@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Logo } from "../../components/Layout";
@@ -20,7 +20,8 @@ const Login = ({ navigation }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(LoginSchema),
     defaultValues: {
@@ -28,6 +29,14 @@ const Login = ({ navigation }) => {
       password: ""
     }
   });
+
+  const onSubmit = () => {
+    reset({
+      email: "",
+      password: ""
+    });
+  };
+
   return (
     <SafeAreaView
       className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
@@ -98,7 +107,7 @@ const Login = ({ navigation }) => {
               <Button
                 bgColor="yellowPrimary"
                 text="Login"
-                onPress={handleSubmit()}
+                onPress={handleSubmit(onSubmit)}
               />
             </View>
             <View className="">
