@@ -10,7 +10,7 @@ const MovieVisualVersionCard = ({
   return (
     <ImageBackground
       key={index}
-      source={{ uri: item.url }}
+      source={{ uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}` }}
       resizeMode="cover"
       className={`justify-between ${
         horizontalDisplay && "mr-4"

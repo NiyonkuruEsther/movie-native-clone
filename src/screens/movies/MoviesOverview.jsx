@@ -9,16 +9,18 @@ import {
   ScrollView,
   Image
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
 import { MoviesData } from "../../data";
 import { heightFull, widthFull } from "../Home";
 import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
 import { Logo } from "../../components/Layout";
+import { getItems } from "../../fetch";
 
 const MoviesOverview = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [movies, setMovies] = useState([]);
   const [data, setData] = useState([
     "Popular Today",
     "Marvel",
@@ -33,11 +35,17 @@ const MoviesOverview = ({ navigation }) => {
     "Originals"
   ]);
 
+  useEffect(() => {
+    getItems(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US",
+      setMovies
+    );
+    // console.log(movies);
+  }, []);
+
   const loadMoreData = () => {
     setData([...data, ...data]);
   };
-
-  const [movies, setMovies] = useState(MoviesData);
 
   const loadMoreDataMovies = () => {
     setMovies([...movies, ...movies]);
@@ -48,9 +56,7 @@ const MoviesOverview = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
-      className={` bg-[#1F2123] relative h-[${heightFull}px]`}
-    >
+    <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
       <View className="pl-5 pt-4">
         <View className="flex-row justify-between items-center">
           <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
@@ -128,7 +134,7 @@ const MoviesOverview = ({ navigation }) => {
               />
             </View>
             {/* Gallery 2 */}
-            <View className="pb-5">
+            {/* <View className="pb-5">
               <MoviesOverviewlist
                 data={[...movies].reverse()}
                 horizontalDisplay={true}
@@ -137,10 +143,10 @@ const MoviesOverview = ({ navigation }) => {
                 viewMore={true}
                 loadMoreData={loadMoreDataMovies}
               />
-            </View>
+            </View> */}
           </View>
           {/* Gallery 3 */}
-          <View
+          {/* <View
             className=" flex-row flex-1 items-center justify-center"
             style={{ width: widthFull }}
           >
@@ -152,7 +158,7 @@ const MoviesOverview = ({ navigation }) => {
               viewMore={true}
               loadMoreData={loadMoreDataMovies}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </ScrollView>
 
