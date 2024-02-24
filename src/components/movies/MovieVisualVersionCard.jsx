@@ -10,7 +10,9 @@ const MovieVisualVersionCard = ({
   return (
     <ImageBackground
       key={index}
-      source={{ uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}` }}
+      source={{
+        uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`
+      }}
       resizeMode="cover"
       className={`justify-between ${
         horizontalDisplay && "mr-4"
@@ -18,7 +20,7 @@ const MovieVisualVersionCard = ({
       borderRadius={12}
     >
       <View className={`self-end bg-yellowPrimary rounded-md px-2 py-1`}>
-        <Text className="font-medium">{item.visualVersion}</Text>
+        <Text className="font-medium">{item.vote_average.toFixed(1)}</Text>
       </View>
     </ImageBackground>
   );

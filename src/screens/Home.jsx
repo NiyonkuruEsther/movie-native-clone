@@ -4,37 +4,55 @@ import {
   Dimensions,
   ImageBackground
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Logo } from "../components/Layout";
 import { Button } from "../components";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
 import Carousel from "react-native-snap-carousel";
+import { getItems } from "../fetch";
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
 
 const Home = ({ isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [currentImageUrl, setCurrentImageUrl] = useState(Data[0].url);
+  const [movies, setMovies] = useState([]);
   const carouselRef = useRef(null);
   const navigation = useNavigation();
+
   const sliderWidth = Dimensions.get("window").width;
   const itemWidth = sliderWidth - 20;
+  const [currentImageUrl, setCurrentImageUrl] = useState();
+
+  useEffect(() => {
+    getItems(
+      "https://api.themoviedb.org/3/movie/popular?language=en-US",
+      setMovies,
+      ["results"]
+    );
+
+  }, []);
 
   const renderItem = ({ item, index }) => {
+    console.log(index);
     return (
       <TouchableOpacity className="gap-y-4 px-4">
-        <Text className="text-white text-3xl font-bold">{item.title}</Text>
-        <Text className=" text-[19px] text-white">{item.description}</Text>
+        <Text className="text-white text-3xl font-bold">
+          {Data[index].title}
+        </Text>
+        <Text className=" text-[19px] text-white">
+          {Data[index].description}
+        </Text>
       </TouchableOpacity>
     );
   };
+
   return !isLoading ? (
     // Home screen
     <ImageBackground
       source={{
-        uri: currentImageUrl
+        uri: `https://image.tmdb.org/t/p/original${currentImageUrl}`
       }}
       resizeMode="cover"
       resizeMethod="scale"
@@ -55,14 +73,16 @@ const Home = ({ isLoading }) => {
               renderItem={renderItem}
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
-              data={Data}
+              data={movies.slice(0, 4)}
               onSnapToItem={(index) => {
-                setActiveIndex(index);
-                setCurrentImageUrl(Data[index].url);
+                if (index >= 0 && index <= 4) {
+                  setActiveIndex(index);
+                  setCurrentImageUrl(movies[index].backdrop_path);
+                }
               }}
             />
             <TouchableOpacity className="flex-row gap-x-2 pt-2 pl-7">
-              {Data.map((item, index) => (
+              {[1, 2, 3, 4].map((item, index) => (
                 <TouchableOpacity
                   key={index}
                   style={{

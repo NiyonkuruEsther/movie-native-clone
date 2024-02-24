@@ -28,32 +28,21 @@ const MoviesOverview = ({ navigation }) => {
     "Star Watch"
   ]);
 
-  const [navData, setNavData] = useState([
-    "Featured",
-    "Series",
-    "Films",
-    "Originals"
-  ]);
+  const [navData, setNavData] = useState([]);
 
   useEffect(() => {
     getItems(
       "https://api.themoviedb.org/3/movie/popular?language=en-US",
-      setMovies
+      setMovies,
+      "results"
     );
-    // console.log(movies);
+    getItems(
+      "https://api.themoviedb.org/3/genre/movie/list?language=en",
+      setNavData,
+      "genres"
+    );
+    console.log(movies, "movies");
   }, []);
-
-  const loadMoreData = () => {
-    setData([...data, ...data]);
-  };
-
-  const loadMoreDataMovies = () => {
-    setMovies([...movies, ...movies]);
-  };
-
-  const loadMoreDataNavData = () => {
-    setNavData([...navData, ...navData]);
-  };
 
   return (
     <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
@@ -85,14 +74,13 @@ const MoviesOverview = ({ navigation }) => {
                   activeIndex === index ? "text-yellowPrimary " : "text-white"
                 } text-base`}
               >
-                <Text>{item}</Text>
+                <Text>{item.name}</Text>
               </Text>
             </TouchableOpacity>
           )}
           keyExtractor={(item, index) => index.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
-          onEndReached={loadMoreDataNavData}
         />
       </View>
       <ScrollView
@@ -107,20 +95,19 @@ const MoviesOverview = ({ navigation }) => {
 
             <FlatList
               className=" h-auto"
-              data={data}
+              data={navData}
               renderItem={({ item, index }) => (
                 <View
                   className={`border border-gray-400 rounded-lg h-auto justify-center ${
                     index === 0 ? "ml-5" : "ml-3"
                   } `}
                 >
-                  <Text className={` p-3 text-white `}>{item}</Text>
+                  <Text className={` p-3 text-white `}>{item.name}</Text>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
               horizontal
               showsHorizontalScrollIndicator={false}
-              onEndReached={loadMoreData}
             />
             {/* Gallery */}
             <View className="">
@@ -130,7 +117,6 @@ const MoviesOverview = ({ navigation }) => {
                 imgSize={"w-[60vw] h-[20vh]"}
                 title={"New Releases"}
                 viewMore={true}
-                loadMoreData={loadMoreDataMovies}
               />
             </View>
             {/* Gallery 2 */}

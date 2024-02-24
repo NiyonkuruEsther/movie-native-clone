@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getItems = async (url, setData) => {
+export const getItems = async (url, setData, responseFormat) => {
   const options = {
     method: "GET",
     url: url,
@@ -12,10 +12,9 @@ export const getItems = async (url, setData) => {
   };
 
   await axios(options)
-    // .then((response) => response.json())
     .then((response) => {
-      setData(response.data.results);
-      // console.log(response.data.results.map((item) => item.poster_path));
+      setData(response.data[responseFormat]);
+      console.log(response.data["results"]);
     })
     .catch((error) => {
       console.error(error);
