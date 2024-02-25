@@ -20,7 +20,11 @@ import { getItems } from "../../fetch";
 
 const MoviesOverview = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [movies, setMovies] = useState([]);
+  const [newReleasedMovies, setNewRelesedMovies] = useState([]);
+  const [madeForYouMovies, setMadeForYouMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+
   const [data, setData] = useState([
     "Popular Today",
     "Marvel",
@@ -33,7 +37,22 @@ const MoviesOverview = ({ navigation }) => {
   useEffect(() => {
     getItems(
       "https://api.themoviedb.org/3/movie/popular?language=en-US",
-      setMovies,
+      setPopularMovies,
+      "results"
+    );
+    getItems(
+      "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+      setMadeForYouMovies,
+      "results"
+    );
+    getItems(
+      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+      setNewRelesedMovies,
+      "results"
+    );
+    getItems(
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+      setUpcomingMovies,
       "results"
     );
     getItems(
@@ -41,7 +60,6 @@ const MoviesOverview = ({ navigation }) => {
       setNavData,
       "genres"
     );
-    console.log(movies, "movies");
   }, []);
 
   return (
@@ -112,7 +130,7 @@ const MoviesOverview = ({ navigation }) => {
             {/* Gallery */}
             <View className="">
               <MoviesOverviewlist
-                data={movies}
+                data={newReleasedMovies}
                 horizontalDisplay={true}
                 imgSize={"w-[60vw] h-[20vh]"}
                 title={"New Releases"}
@@ -120,31 +138,40 @@ const MoviesOverview = ({ navigation }) => {
               />
             </View>
             {/* Gallery 2 */}
-            {/* <View className="pb-5">
+            <View className="">
               <MoviesOverviewlist
-                data={[...movies].reverse()}
+                data={madeForYouMovies}
                 horizontalDisplay={true}
                 imgSize={"w-[60vw] h-[20vh]"}
                 title={"Made for you"}
                 viewMore={true}
-                loadMoreData={loadMoreDataMovies}
               />
-            </View> */}
+            </View>
+
+            {/* Gallery 3 */}
+            <View className="pb-5">
+              <MoviesOverviewlist
+                data={[...upcomingMovies].reverse()}
+                horizontalDisplay={true}
+                imgSize={"w-[60vw] h-[20vh]"}
+                title={"Upcoming"}
+                viewMore={true}
+              />
+            </View>
           </View>
           {/* Gallery 3 */}
-          {/* <View
+          <View
             className=" flex-row flex-1 items-center justify-center"
             style={{ width: widthFull }}
           >
             <MoviesOverviewlist
-              data={[...MoviesData].reverse()}
+              data={[...popularMovies].reverse()}
               horizontalDisplay={false}
               imgSize={`w-[90vw] h-[30vh] mb-5`}
               title={`Popular on Muvi`}
               viewMore={true}
-              loadMoreData={loadMoreDataMovies}
             />
-          </View> */}
+          </View>
         </ScrollView>
       </ScrollView>
 

@@ -35,7 +35,6 @@ const Home = ({ isLoading }) => {
   }, []);
 
   const renderItem = ({ item, index }) => {
-    console.log(index);
     return (
       <TouchableOpacity className="gap-y-4 px-4">
         <Text className="text-white text-3xl font-bold">
