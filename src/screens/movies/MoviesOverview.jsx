@@ -16,14 +16,23 @@ import { MoviesData } from "../../data";
 import { heightFull, widthFull } from "../Home";
 import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
 import { Logo } from "../../components/Layout";
-import { getItems } from "../../fetch";
+import { getGenre, getMovies } from "../../fetch";
+import { Skeleton } from "@rneui/themed";
 
 const MoviesOverview = ({ navigation }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [newReleasedMovies, setNewRelesedMovies] = useState([]);
-  const [madeForYouMovies, setMadeForYouMovies] = useState([]);
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [newReleasedMovies, setNewRelesedMovies] = useState({
+    movies: []
+  });
+  const [madeForYouMovies, setMadeForYouMovies] = useState({
+    movies: []
+  });
+  const [popularMovies, setPopularMovies] = useState({
+    movies: []
+  });
+  const [upcomingMovies, setUpcomingMovies] = useState({
+    movies: []
+  });
 
   const [data, setData] = useState([
     "Popular Today",
@@ -35,30 +44,25 @@ const MoviesOverview = ({ navigation }) => {
   const [navData, setNavData] = useState([]);
 
   useEffect(() => {
-    getItems(
+    getMovies(
       "https://api.themoviedb.org/3/movie/popular?language=en-US",
-      setPopularMovies,
-      "results"
+      setPopularMovies
     );
-    getItems(
+    getMovies(
       "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
-      setMadeForYouMovies,
-      "results"
+      setMadeForYouMovies
     );
-    getItems(
+    getMovies(
       "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-      setNewRelesedMovies,
-      "results"
+      setNewRelesedMovies
     );
-    getItems(
+    getMovies(
       "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
-      setUpcomingMovies,
-      "results"
+      setUpcomingMovies
     );
-    getItems(
+    getGenre(
       "https://api.themoviedb.org/3/genre/movie/list?language=en",
-      setNavData,
-      "genres"
+      setNavData
     );
   }, []);
 
@@ -128,19 +132,24 @@ const MoviesOverview = ({ navigation }) => {
               showsHorizontalScrollIndicator={false}
             />
             {/* Gallery */}
-            <View className="">
-              <MoviesOverviewlist
-                data={newReleasedMovies}
-                horizontalDisplay={true}
-                imgSize={"w-[60vw] h-[20vh]"}
-                title={"New Releases"}
-                viewMore={true}
-              />
-            </View>
+            {madeForYouMovies.isLoading ? (
+              <Skeleton height={300} width={300} />
+            ) : (
+              <View className="">
+                <MoviesOverviewlist
+                  data={newReleasedMovies.movies}
+                  horizontalDisplay={true}
+                  imgSize={"w-[60vw] h-[20vh]"}
+                  title={"New Releases"}
+                  viewMore={true}
+                />
+              </View>
+            )}
+
             {/* Gallery 2 */}
             <View className="">
               <MoviesOverviewlist
-                data={madeForYouMovies}
+                data={madeForYouMovies.movies}
                 horizontalDisplay={true}
                 imgSize={"w-[60vw] h-[20vh]"}
                 title={"Made for you"}
@@ -151,7 +160,7 @@ const MoviesOverview = ({ navigation }) => {
             {/* Gallery 3 */}
             <View className="pb-5">
               <MoviesOverviewlist
-                data={[...upcomingMovies].reverse()}
+                data={[...upcomingMovies.movies].reverse()}
                 horizontalDisplay={true}
                 imgSize={"w-[60vw] h-[20vh]"}
                 title={"Upcoming"}
@@ -165,7 +174,7 @@ const MoviesOverview = ({ navigation }) => {
             style={{ width: widthFull }}
           >
             <MoviesOverviewlist
-              data={[...popularMovies].reverse()}
+              data={[...popularMovies.movies].reverse()}
               horizontalDisplay={false}
               imgSize={`w-[90vw] h-[30vh] mb-5`}
               title={`Popular on Muvi`}

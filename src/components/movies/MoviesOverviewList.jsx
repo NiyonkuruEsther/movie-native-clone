@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import MovieVisualVersion from "./MovieVisualVersionCard";
 
@@ -17,7 +17,9 @@ const MoviesOverviewlist = ({
           <View>
             <Text className="font-bold text-white text-2xl">{title}</Text>
           </View>
-          <Text className="text-gray-400"> {viewMore && "View More"}</Text>
+          <TouchableOpacity>
+            <Text className="text-gray-400">{viewMore && "View More"}</Text>
+          </TouchableOpacity>
         </View>
       )}
       <View className="justify-center items-center">

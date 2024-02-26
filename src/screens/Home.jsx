@@ -10,14 +10,14 @@ import { Button } from "../components";
 import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
 import Carousel from "react-native-snap-carousel";
-import { getItems } from "../fetch";
+import { getMovies } from "../fetch";
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
 
 const Home = ({ isLoading }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState({ movies: [] });
   const carouselRef = useRef(null);
   const navigation = useNavigation();
 
@@ -26,12 +26,10 @@ const Home = ({ isLoading }) => {
   const [currentImageUrl, setCurrentImageUrl] = useState();
 
   useEffect(() => {
-    getItems(
+    getMovies(
       "https://api.themoviedb.org/3/movie/popular?language=en-US",
-      setMovies,
-      ["results"]
+      setMovies
     );
-
   }, []);
 
   const renderItem = ({ item, index }) => {
@@ -72,7 +70,7 @@ const Home = ({ isLoading }) => {
               renderItem={renderItem}
               sliderWidth={sliderWidth}
               itemWidth={itemWidth}
-              data={movies.slice(0, 4)}
+              data={movies.movies.slice(0, 4)}
               onSnapToItem={(index) => {
                 if (index >= 0 && index <= 4) {
                   setActiveIndex(index);
