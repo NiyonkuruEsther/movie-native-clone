@@ -7,7 +7,8 @@ const MovieVisualVersionCard = ({
   imgSize,
   item,
   index,
-  horizontalDisplay
+  horizontalDisplay,
+  vote
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(true);
   // state, function to update the state
@@ -40,7 +41,7 @@ const MovieVisualVersionCard = ({
           style={{ borderRadius: 20 }}
         />
       )}
-      {isImageLoaded && (
+      {isImageLoaded && vote && (
         <View className={`self-end bg-yellowPrimary rounded-md px-2 py-1`}>
           <Text className="font-medium">{item.vote_average.toFixed(1)}</Text>
         </View>
