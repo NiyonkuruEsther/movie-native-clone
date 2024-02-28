@@ -74,7 +74,6 @@ const Home = ({ isLoading }) => {
               onSnapToItem={(index) => {
                 if (index >= 0 && index <= 4) {
                   setActiveIndex(index);
-                  console.log(index);
                   setCurrentImageUrl(movies[index].backdrop_path);
                 }
               }}

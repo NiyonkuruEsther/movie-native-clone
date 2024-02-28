@@ -17,7 +17,6 @@ export const getMovies = async (url, setData) => {
       setData({
         movies: response.data.results
       });
-      console.log(response.data);
     });
   } catch (error) {
     console.error(error);
@@ -27,7 +26,6 @@ export const getMovies = async (url, setData) => {
 export const getGenre = async (url, setData) => {
   try {
     await axios(useOptions(url)).then((response) => {
-      console.log(response.data.genres, "genre");
       setData(response.data.genres);
     });
   } catch (error) {

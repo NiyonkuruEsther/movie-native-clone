@@ -1,9 +1,9 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-const SearchCard = ({ item, genre }) => {
+const SearchCard = ({ item, genres }) => {
   return (
-    <View className={` h-[17vh] gap-x-5 flex-row`}>
+    <View className={` h-[17vh] gap-x-5 flex-row `}>
       <View className={`w-[45vw]`}>
         <Image
           source={{
@@ -13,7 +13,7 @@ const SearchCard = ({ item, genre }) => {
         />
       </View>
 
-      <View className="justify-between w-[40vw]">
+      <View className="justify-around w-[40vw]">
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
@@ -24,7 +24,11 @@ const SearchCard = ({ item, genre }) => {
         <Text className="font-medium text-lg text-grayPrimary">
           {item.release_date}
         </Text>
-        <Text className=" text-grayPrimary">{genre}</Text>
+        <View className="flex-row flex-wrap gap-y-2">
+          {genres.map((item) => (
+            <Text className=" text-grayPrimary"> {item}</Text>
+          ))}
+        </View>
       </View>
     </View>
   );
