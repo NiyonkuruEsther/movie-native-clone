@@ -1,6 +1,7 @@
 import { View, Text, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import { Skeleton } from "@rneui/themed";
+import { TextInput } from "react-native";
 
 const MovieVisualVersionCard = ({
   imgSize,
@@ -9,6 +10,13 @@ const MovieVisualVersionCard = ({
   horizontalDisplay
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(true);
+  // state, function to update the state
+
+  const [email, setEmail] = useState("");
+
+  const onEmailChange = (value) => {
+    setEmail(value);
+  };
 
   return (
     <ImageBackground

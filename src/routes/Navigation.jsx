@@ -1,14 +1,14 @@
-import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { Home, Welcome } from "../screens";
+import { Home, Search, Welcome } from "../screens";
 import { SignUp, Login } from "../screens/Auth";
 import { MoviesOverview } from "../screens/movies";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createNativeStackNavigator();
-
+const Tab = createBottomTabNavigator();
 const Navigation = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,15 +26,17 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
+        // initialRouteName="Home"
       >
-        <Stack.Screen name="Home">
+        <Stack.Screen name="Search" component={Search} />
+
+        {/* <Stack.Screen name="Home">
           {(props) => <Home {...props} isLoading={isLoading} />}
         </Stack.Screen>
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Movies" component={MoviesOverview} />
+        <Stack.Screen name="Movies" component={MoviesOverview} /> */}
       </Stack.Navigator>
       <StatusBar style="light" />
     </NavigationContainer>
