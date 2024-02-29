@@ -6,11 +6,12 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { File } from "../screens/File";
 import ViewMoreMovies from "../screens/movies/ViewMoreMovies";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import SingleMovieOverview from "../screens/movies/SingleMovieOverview";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const SearchStack = () => {
+const MoviesOverviewStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -19,6 +20,26 @@ const SearchStack = () => {
     >
       <Stack.Screen name="MoviesOverview" component={MoviesOverview} />
       <Stack.Screen name="ViewMoreMovies" component={ViewMoreMovies} />
+      <Stack.Screen
+        name="SingleMovieOverview"
+        component={SingleMovieOverview}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const SearchStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen
+        name="SingleMovieOverview"
+        component={SingleMovieOverview}
+      />
     </Stack.Navigator>
   );
 };
@@ -39,7 +60,7 @@ const BottomNavigation = () => {
     >
       <Tab.Screen
         name="SearchStack"
-        component={SearchStack}
+        component={MoviesOverviewStack}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="home" size={size} color={color} />

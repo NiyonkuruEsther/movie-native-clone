@@ -1,33 +1,51 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  TouchableOpacity
+} from "react-native";
 import React from "react";
 import { MovieVisualVersionCard } from "../../components/movies";
 import { useNavigation } from "@react-navigation/native";
 import { heightFull, widthFull } from "../Home";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
-const ViewMoreMovies = ({ route }) => {
+const ViewMoreMovies = ({ route, navigation }) => {
   const { title, movies } = route.params;
 
   return (
     <View className="bg-bgDarkSecondary flex-1">
-      <View className="pt-16 ">
-        <Text className="text-white text-2xl px-5">{title}</Text>
-      </View>
-      <View style={{ flex: 1, paddingBottom: 20 }}>
+      <TouchableOpacity
+        className="pt-16 pb-5 flex-row items-center px-5 gap-x-2"
+        onPress={() => navigation.goBack()}
+      >
+        <AntDesign name="arrowleft" color="#FDD031" size={25} />
+        <Text className="text-white text-2xl ">{title}</Text>
+      </TouchableOpacity>
+      <View style={{ flex: 1 }} className="bg-bgDarkPrimary ">
         <FlatList
           data={movies}
           renderItem={({ item, index }) => (
-            <View className="w-[40vw] mx-5">
+            <TouchableOpacity
+              className="w-[40vw] mx-5 mt-5"
+              onPress={() =>
+                navigation.navigate("SingleMovieOverview", { movie: item })
+              }
+            >
               <MovieVisualVersionCard
                 item={item}
                 imgSize={`h-[30vh] w-[40vw]`}
                 index={index}
                 horizontalDisplay={false}
               />
-              <Text className="text-white">{item.original_title}</Text>
-              <Text className="text-white" numberOfLines={1}>
+              <Text className="text-white pt-3" numberOfLines={1}>
+                {item.original_title}
+              </Text>
+              <Text className="text-white opacity-80 pt-px" numberOfLines={1}>
                 {item.overview}
               </Text>
-            </View>
+            </TouchableOpacity>
           )}
           columnWrapperStyle={{
             justifyContent: "space-between",
