@@ -32,7 +32,7 @@ const MovieVisualVersionCard = ({
           height={"auto"}
           width={"auto"}
           animation="wave"
-          style={{ borderRadius: 20 }}
+          style={{ borderRadius: 12 }}
         />
       )}
       {isImageLoaded && vote && (

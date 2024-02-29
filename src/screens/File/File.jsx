@@ -3,12 +3,15 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  ScrollView
 } from "react-native";
 import React, { useState } from "react";
-import { heightFull } from "./Home";
-import { Logo } from "../components/Layout";
+import { heightFull } from "../Home";
+import { Logo } from "../../components/Layout";
 import Feather from "react-native-vector-icons/Feather";
+import MyList from "./MyList";
+import Downloads from "./Downloads";
 
 const File = ({ navigation }) => {
   const [navData, setNavData] = useState(["My list", "Downloaded"]);
@@ -73,6 +76,9 @@ const File = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
+      <ScrollView className="bg-bgDarkPrimary p-5 ">
+        {activeIndex === 0 ? <MyList /> : <Downloads />}
+      </ScrollView>
     </SafeAreaView>
   );
 };

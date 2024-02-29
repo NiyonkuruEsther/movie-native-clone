@@ -1,15 +1,16 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import MovieVisualVersion from "./MovieVisualVersionCard";
+import { useNavigation } from "@react-navigation/native";
 
 const MoviesOverviewlist = ({
   data,
   title,
   viewMore,
   imgSize,
-  horizontalDisplay,
-  loadMoreData
+  horizontalDisplay
 }) => {
+  const navigation = useNavigation();
   return (
     <View className="gap-y-5 flex-1 pt-5 ">
       {title && (
@@ -17,7 +18,14 @@ const MoviesOverviewlist = ({
           <View>
             <Text className="font-bold text-white text-2xl">{title}</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("ViewMoreMovies", {
+                title: title,
+                movies: data
+              })
+            }
+          >
             <Text className="text-gray-400">{viewMore && "View More"}</Text>
           </TouchableOpacity>
         </View>
@@ -36,7 +44,6 @@ const MoviesOverviewlist = ({
           horizontal={horizontalDisplay}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          onEndReached={loadMoreData}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>

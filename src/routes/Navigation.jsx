@@ -6,6 +6,7 @@ import { Home, Welcome } from "../screens";
 import { SignUp, Login } from "../screens/Auth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BottomNavigation from "./BottomNavigation";
+import ViewMoreMovies from "../screens/movies/ViewMoreMovies";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,6 +35,7 @@ const Navigation = () => {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
+
         <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
       </Stack.Navigator>
       <StatusBar style="light" />
