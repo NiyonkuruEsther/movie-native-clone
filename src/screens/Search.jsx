@@ -6,7 +6,7 @@ import { SearchCard } from "../components/movies";
 const Search = () => {
   const [movies, setMovies] = useState({ movies: [] });
   const [genreList, setGenreList] = useState([]);
-  const [searchKeyword, setSearchkeyword] = useState([]);
+  const [searchKeyword, setSearchkeyword] = useState("");
   const [searchResults, setResearchResults] = useState({ movies: [] });
   useEffect(() => {
     getMovies(
@@ -17,17 +17,21 @@ const Search = () => {
       "https://api.themoviedb.org/3/genre/movie/list?language=en",
       setGenreList
     );
+  }, []);
+  const getSearchResults = () => {
     getMovies(
-      `https://api.themoviedb.org/3/search/movie?query=Maze&include_adult=true&language=en-US`,
+      `https://api.themoviedb.org/3/search/movie?query=${
+        searchKeyword && searchKeyword
+      }&include_adult=true&language=en-US`,
       setResearchResults
     );
-  }, []);
+  };
 
   const mapGenres = (genreIds) => {
     let genreNames = [];
     genreIds.forEach((genreId) => {
       const genre = genreList.find((item) => item.id === genreId);
-      genreNames.push(genre.name);
+      genreNames.push(genre && genre.name);
     });
     return genreNames;
   };
@@ -42,19 +46,34 @@ const Search = () => {
             placeholder="Type title, category, years, etc..."
             placeholderTextColor={"gray"}
             selectionColor={"white"}
+            onChangeText={(text) => {
+              setSearchkeyword(text);
+              getSearchResults();
+              console.log(searchKeyword, searchResults);
+            }}
           />
-          <AntDesign name="search1" size={25} color={"#FDD031"} />
+          <AntDesign
+            name="search1"
+            size={25}
+            color={"#FDD031"}
+            onPress={getSearchResults}
+          />
         </View>
       </View>
-      <FlatList
-        data={movies.movies}
-        className="px-5 mb-12"
-        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-        renderItem={({ item }) => (
-          <SearchCard item={item} genres={mapGenres(item.genre_ids)} />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <View className="flex-1 px-5 mb-12">
+        <Text className="text-white text-xl pb-5">
+          {searchKeyword ? "Search Results" : "Popular Movies"}
+        </Text>
+        <FlatList
+          data={searchKeyword ? searchResults.movies : movies.movies}
+          ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+          renderItem={({ item }) => (
+            <SearchCard item={item} genres={mapGenres(item.genre_ids)} />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };

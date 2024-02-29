@@ -13,12 +13,6 @@ const MovieVisualVersionCard = ({
   const [isImageLoaded, setIsImageLoaded] = useState(true);
   // state, function to update the state
 
-  const [email, setEmail] = useState("");
-
-  const onEmailChange = (value) => {
-    setEmail(value);
-  };
-
   return (
     <ImageBackground
       key={index}

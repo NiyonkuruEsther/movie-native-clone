@@ -17,6 +17,7 @@ export const getMovies = async (url, setData) => {
       setData({
         movies: response.data.results
       });
+      // console.log(response.data.results);
     });
   } catch (error) {
     console.error(error);
