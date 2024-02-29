@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import { Skeleton } from "@rneui/themed";
 
@@ -8,19 +8,18 @@ const SearchCard = ({ item, genres }) => {
   return (
     <View className={` h-[17vh] gap-x-5 flex-row `}>
       <View className={`w-[45vw]`}>
-        {isImageLoaded && (
-          <Image
-            source={{
-              uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`
-            }}
-            className={`w-full h-full`}
-            onLoadStart={() => setIsImageLoaded(false)}
-            onLoadEnd={() => setIsImageLoaded(true)}
-          />
-        )}
-        {isImageLoaded === false && (
-          <Skeleton height={"auto"} width={"auto"} animation="wave" />
-        )}
+        <ImageBackground
+          source={{
+            uri: `https://image.tmdb.org/t/p/original${item.backdrop_path}`
+          }}
+          className={`w-full h-full`}
+          onLoadStart={() => setIsImageLoaded(false)}
+          onLoadEnd={() => setIsImageLoaded(true)}
+        >
+          {!isImageLoaded && (
+            <Skeleton height={"auto"} width={"auto"} animation="wave" />
+          )}
+        </ImageBackground>
       </View>
 
       <View className="justify-around w-[40vw]">
