@@ -60,11 +60,12 @@ const Search = () => {
           />
         </View>
       </View>
-      <View className="flex-1 px-5 mb-12">
-        <Text className="text-white text-xl pb-5">
+      <ScrollView className="flex-1 px-5">
+        <Text className="text-white text-xl mb-5">
           {searchKeyword ? "Search Results" : "Popular Movies"}
         </Text>
         <FlatList
+        className="mb-5"
           data={searchKeyword ? searchResults.movies : movies.movies}
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
           renderItem={({ item }) => (
@@ -73,7 +74,7 @@ const Search = () => {
           keyExtractor={(item, index) => index.toString()}
           showsVerticalScrollIndicator={false}
         />
-      </View>
+      </ScrollView>
     </View>
   );
 };

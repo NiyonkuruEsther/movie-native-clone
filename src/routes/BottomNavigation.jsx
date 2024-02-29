@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Search } from "../screens";
+import { File, Profile, Search } from "../screens";
 import MoviesOverview from "../screens/movies/MoviesOverview";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -30,11 +30,29 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Home"
+        name="Search"
         component={Search}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="search1" size={size} color={color} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="File"
+        component={File}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="folder1" size={size} color={color} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="appstore-o" size={size} color={color} />
           )
         }}
       />
