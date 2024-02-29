@@ -185,7 +185,7 @@ const MoviesOverview = ({ navigation }) => {
       </ScrollView>
 
       {/* Bottom nav */}
-      <View
+      {/* <View
         className=" flex-row justify-between bg-bgDarkPrimary absolute bottom-0 px-5 py-[4vh]"
         style={{ width: widthFull }}
       >
@@ -193,8 +193,7 @@ const MoviesOverview = ({ navigation }) => {
         <Feather name="search" size={25} color="white" />
         <Feather name="folder" size={25} color="white" />
         <Image source={require("../../../assets/menu.png")} />
-        {/* <Feather name="folder" size={25} color="white" /> */}
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

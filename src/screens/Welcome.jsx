@@ -33,7 +33,7 @@ const Welcome = ({ navigation }) => {
         <Button
           text="Watch Movie"
           bgColor="yellowPrimary"
-          onPress={() => navigation.push("Movies")}
+          onPress={() => navigation.push("BottomNavigation")}
         />
         <TouchableOpacity onPress={() => navigation.push("Login")}>
           <Text className="text-white text-center">Sign In</Text>
