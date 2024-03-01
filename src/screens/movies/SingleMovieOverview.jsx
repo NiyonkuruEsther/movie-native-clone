@@ -8,16 +8,30 @@ import {
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
 
-import React, { useState } from "react";
-import { widthFull } from "../Home";
+import React, { useEffect, useState } from "react";
+import { getAllPeople, getMovies } from "../../fetch";
+import YoutubePlayer from "react-native-youtube-iframe";
+import { heightFull, widthFull } from "../Home";
+import { Skeleton } from "@rneui/themed";
 
 const SingleMovieOverview = ({ route, navigation }) => {
   const { movie } = route.params;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [video, setVideo] = useState({ movies: {} });
+  const [people, setPeople] = useState([]);
 
-  const navData = ["Synopsis", "Cast"];
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const navData = ["Synopsis", "Trailer", "Cast"];
 
-  console.log(movie);
+  useEffect(() => {
+    getMovies(
+      `https://api.themoviedb.org/3/movie/${movie.id}/videos?language=en-US`,
+      setVideo
+    );
+    getAllPeople("https://api.themoviedb.org/3/person/changes?", setPeople);
+  }, []);
+
+  // console.log(movie);c
   return (
     <View className="h-screen">
       {/* bg Image */}
@@ -99,9 +113,38 @@ const SingleMovieOverview = ({ route, navigation }) => {
       </View>
 
       <View className="bg-bgDarkPrimary h-full px-5 pt-5">
-        <Text className="text-white text-base" numberOfLines={4}>
-          {movie.overview}
-        </Text>
+        {activeIndex === 0 ? (
+          <Text className="text-gray-300 text-base" numberOfLines={4}>
+            {movie.overview}
+          </Text>
+        ) : activeIndex === 1 ? (
+          <View
+            style={{
+              height: heightFull / 4,
+              overflow: "hidden",
+              paddingBottom: 20
+            }}
+          >
+            {!isVideoLoaded && (
+              <Skeleton
+                height={heightFull / 4}
+                width={"auto"}
+                animation="wave"
+              />
+            )}
+            <YoutubePlayer
+              height={heightFull / 2}
+              onReady={() => setIsVideoLoaded(true)}
+              // play={playing}
+              videoId={video.movies && video.movies[0].key}
+              // onChangeState={onStateChange}
+            />
+          </View>
+        ) : (
+          <Text className="text-gray-300 text-base" numberOfLines={4}>
+            {people}
+          </Text>
+        )}
       </View>
     </View>
   );

@@ -18,8 +18,13 @@ import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
 import { Logo } from "../../components/Layout";
 import { getGenre, getMovies } from "../../fetch";
 import { Skeleton } from "@rneui/themed";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MoviesOverview = ({ navigation }) => {
+
+const getToken =  AsyncStorage.getItem("token-user")
+
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [newReleasedMovies, setNewRelesedMovies] = useState({
     movies: []

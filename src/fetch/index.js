@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const useOptions = (url) => {
@@ -11,6 +12,11 @@ const useOptions = (url) => {
     }
   };
 };
+
+const storeToken = async () => {
+  await AsyncStorage.setItem("token-user", "tokenuser");
+};
+
 export const getMovies = async (url, setData) => {
   try {
     await axios(useOptions(url)).then((response) => {
@@ -31,5 +37,37 @@ export const getGenre = async (url, setData) => {
     });
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getAllPeople = async (allPeopleUrl, setData) => {
+  try {
+    let allPeople = [];
+    let currentPage = 1;
+
+    while (true) {
+      const response = await axios(useOptions(`${allPeopleUrl}page=${1}`));
+
+      for (const person of response.data.results) {
+        const { data } = await axios(
+          useOptions(
+            `https://api.themoviedb.org/3/person/${person.id}/movie_credits?language=en-US`
+          )
+        );
+
+        const personDetails = { ...person, details: { ...data } };
+        allPeople.push(personDetails);
+      }
+
+      if (response.data.page === response.data.total_pages) {
+        break;
+      }
+
+      currentPage++;
+    }
+
+    setData(allPeople);
+  } catch (error) {
+    console.error(error, "error");
   }
 };

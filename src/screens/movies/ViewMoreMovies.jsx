@@ -1,14 +1,7 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  FlatList,
-  TouchableOpacity
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
 import { MovieVisualVersionCard } from "../../components/movies";
-import { useNavigation } from "@react-navigation/native";
-import { heightFull, widthFull } from "../Home";
+import { widthFull } from "../Home";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 const ViewMoreMovies = ({ route, navigation }) => {

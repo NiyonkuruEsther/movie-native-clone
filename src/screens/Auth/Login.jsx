@@ -15,6 +15,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const {
@@ -29,6 +30,16 @@ const Login = ({ navigation }) => {
       password: ""
     }
   });
+
+      const HandleGetStore = async() =>{
+        try {
+          const respon = await  AsyncStorage.getItem("mykey")
+          console.log(respon)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
 
   const onSubmit = () => {
     reset({
@@ -116,6 +127,7 @@ const Login = ({ navigation }) => {
               </Text>
               <View className="mb-3">
                 <Button
+                onPress={HandleGetStore}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -123,6 +135,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
+                onPress={HandleStore}
                   bgColor="white"
                   text="Login with Google"
                   icon={
