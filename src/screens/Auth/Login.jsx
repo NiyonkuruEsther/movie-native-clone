@@ -16,6 +16,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = ({ navigation }) => {
   const {
@@ -31,21 +33,28 @@ const Login = ({ navigation }) => {
     }
   });
 
-      const HandleGetStore = async() =>{
-        try {
-          const respon = await  AsyncStorage.getItem("mykey")
-          console.log(respon)
-        } catch (error) {
-          console.log(error)
-        }
-      }
+  const HandleGetStore = async () => {
+    try {
+      const respon = await AsyncStorage.getItem("mykey");
+      console.log(respon);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const auth = FIREBASE_AUTH;
 
-
-  const onSubmit = () => {
-    reset({
-      email: "",
-      password: ""
-    });
+  const onSubmit = async (data) => {
+    try {
+      await signInWithEmailAndPassword(auth,data.email, data.password);
+      reset({
+        email: "",
+        password: ""
+      });
+      console.log("logged in successfully");
+      // await HandleGetStore();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -127,7 +136,7 @@ const Login = ({ navigation }) => {
               </Text>
               <View className="mb-3">
                 <Button
-                onPress={HandleGetStore}
+                  onPress={HandleGetStore}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -135,7 +144,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
-                onPress={HandleStore}
+                  // onPress={HandleStore}
                   bgColor="white"
                   text="Login with Google"
                   icon={
