@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useState } from "react";
 
 const useOptions = (url) => {
   return {
@@ -23,7 +24,6 @@ export const getMovies = async (url, setData) => {
       setData({
         movies: response.data.results
       });
-      // console.log(response.data.results);
     });
   } catch (error) {
     console.error(error);
@@ -41,14 +41,20 @@ export const getGenre = async (url, setData) => {
 };
 
 export const getAllPeople = async (allPeopleUrl, setData) => {
+  // const [pagesDone, setPagesDone] = useState(true);
   try {
     let allPeople = [];
     let currentPage = 1;
 
     while (true) {
-      const response = await axios(useOptions(`${allPeopleUrl}page=${1}`));
+      console.log(allPeopleUrl);
+
+      const response = await axios(useOptions(`${allPeopleUrl}page=${40}`));
 
       for (const person of response.data.results) {
+        // console.log(currentPage, person.id);
+        console.log(response.data.page === response.data.total_pages, person.id);
+
         const { data } = await axios(
           useOptions(
             `https://api.themoviedb.org/3/person/${person.id}/movie_credits?language=en-US`
@@ -56,11 +62,12 @@ export const getAllPeople = async (allPeopleUrl, setData) => {
         );
 
         const personDetails = { ...person, details: { ...data } };
+
         allPeople.push(personDetails);
       }
-
       if (response.data.page === response.data.total_pages) {
         break;
+        // setPagesDone(false)
       }
 
       currentPage++;

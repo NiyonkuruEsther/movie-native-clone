@@ -16,8 +16,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 const Login = ({ navigation }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginError, setLoginError] = useState("");
   const {
     control,
     handleSubmit,
@@ -31,20 +37,41 @@ const Login = ({ navigation }) => {
     }
   });
 
-      const HandleGetStore = async() =>{
-        try {
-          const respon = await  AsyncStorage.getItem("mykey")
-          console.log(respon)
-        } catch (error) {
-          console.log(error)
-        }
+  const HandleGetStore = async () => {
+    try {
+      const respon = await AsyncStorage.getItem("mykey");
+      console.log(respon);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const auth = FIREBASE_AUTH;
+
+  const onSubmit = async (data) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      reset({
+        email: "",
+        password: ""
+      });
+      setIsLoggedIn(true);
+      console.log("logged in successfully");
+    } catch (error) {
+      if (error.code === "auth/too-many-requests") {
+        setLoginError(
+          "Too many request, Please reset Password or Try again later"
+        );
+        console.log(error.code, isLoggedIn);
+      } else if (error.code === "auth/invalid-credential") {
+        setLoginError("Invalid credentials");
+        console.log(error.code, isLoggedIn);
+      } else {
+        console.log(error);
       }
-
-
-  const onSubmit = () => {
-    reset({
-      email: "",
-      password: ""
+    }
+    showMessage({
+      message: !isLoggedIn ? loginError : "Logged in successfully",
+      type: !isLoggedIn ? "danger" : "success"
     });
   };
 
@@ -52,6 +79,16 @@ const Login = ({ navigation }) => {
     <SafeAreaView
       className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
+      <FlashMessage
+        duration={3000}
+        position={"top"}
+        message={
+          !isLoggedIn && loginError
+            ? { message: loginError }
+            : { message: "Logged in successfully" }
+        }
+        textStyle={{ textAlign: "center" }}
+      />
       <KeyboardAvoidingView behavior="position" className={`flex-1`}>
         <View className={`justify-between h-full `}>
           <View className="flex-row gap-5 items-center">
@@ -127,7 +164,7 @@ const Login = ({ navigation }) => {
               </Text>
               <View className="mb-3">
                 <Button
-                onPress={HandleGetStore}
+                  onPress={HandleGetStore}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -135,7 +172,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
-                onPress={HandleStore}
+                  // onPress={HandleStore}
                   bgColor="white"
                   text="Login with Google"
                   icon={

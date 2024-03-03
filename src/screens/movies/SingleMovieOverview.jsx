@@ -142,7 +142,9 @@ const SingleMovieOverview = ({ route, navigation }) => {
           </View>
         ) : (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
-            {people}
+            {people.map((item) => (
+              <Text key={item.id}> {`ssssssssssssssssss ${item.details.id}`}</Text>
+            ))}
           </Text>
         )}
       </View>

@@ -35,7 +35,6 @@ const Navigation = () => {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
-
         <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
       </Stack.Navigator>
       <StatusBar style="light" />

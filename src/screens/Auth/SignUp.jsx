@@ -16,6 +16,8 @@ import InputLabel from "../../components/form/InputLabel";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "../../schema";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = ({ navigation }) => {
   const {
@@ -33,12 +35,19 @@ const SignUp = ({ navigation }) => {
     }
   });
 
-  const onSubmit = () => {
-    reset({
-      email: "",
-      password: "",
-      confirm_password: ""
-    });
+  const auth = FIREBASE_AUTH;
+
+  const onSubmit = async (data) => {
+    try {
+      await createUserWithEmailAndPassword(auth,data.email, data.password);
+      reset({
+        email: "",
+        password: "",
+        confirm_password: ""
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <SafeAreaView
