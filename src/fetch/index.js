@@ -47,7 +47,7 @@ export const getAllPeople = async (allPeopleUrl, setData) => {
     let currentPage = 1;
 
     while (true) {
-      console.log(allPeopleUrl);
+      // console.log(allPeopleUrl);
 
       const response = await axios(useOptions(`${allPeopleUrl}page=${40}`));
 

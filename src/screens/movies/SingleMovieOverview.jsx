@@ -13,6 +13,7 @@ import { getAllPeople, getMovies } from "../../fetch";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { heightFull, widthFull } from "../Home";
 import { Skeleton } from "@rneui/themed";
+import WebView from "react-native-webview";
 
 const SingleMovieOverview = ({ route, navigation }) => {
   const { movie } = route.params;
@@ -112,7 +113,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
         />
       </View>
 
-      <View className="bg-bgDarkPrimary h-full px-5 pt-5">
+      <View className="bg-bgDarkPrimary h-full px-5 pt-5 ">
         {activeIndex === 0 ? (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
             {movie.overview}
@@ -132,18 +133,31 @@ const SingleMovieOverview = ({ route, navigation }) => {
                 animation="wave"
               />
             )}
-            <YoutubePlayer
-              height={heightFull / 2}
-              onReady={() => setIsVideoLoaded(true)}
-              // play={playing}
-              videoId={video.movies && video.movies[0].key}
-              // onChangeState={onStateChange}
+            <WebView
+              containerStyle={{ backgroundColor: "black" }}
+              style={{
+                backgroundColor: "black",
+                alignItems: "center",
+                height: heightFull,
+                flex: 1
+              }}
+              source={{
+                uri: `https://www.youtube.com/embed/${video.movies[0].key}?rel=0&autoplay=0&showinfo=0&controls=0`
+              }}
+              scalesPageToFit={true}
+              onLoadEnd={() => setIsVideoLoaded(true)}
+              // onResponderEnd={() => setIsVideoLoaded(true)}
+              allowsFullscreenVideo={true}
+              javaScriptEnabled={true}
             />
           </View>
         ) : (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
             {people.map((item) => (
-              <Text key={item.id}> {`ssssssssssssssssss ${item.details.id}`}</Text>
+              <Text key={item.id}>
+                {" "}
+                {`ssssssssssssssssss ${item.details.id}`}
+              </Text>
             ))}
           </Text>
         )}

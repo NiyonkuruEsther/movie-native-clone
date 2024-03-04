@@ -22,6 +22,7 @@ const ViewMoreMovies = ({ route, navigation }) => {
           renderItem={({ item, index }) => (
             <TouchableOpacity
               className="w-[40vw] mx-5 mt-5"
+              style={{alignItems: 'center'}}
               onPress={() =>
                 navigation.navigate("SingleMovieOverview", { movie: item })
               }
