@@ -3,7 +3,8 @@ import {
   Text,
   KeyboardAvoidingView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from "react-native";
 import React, { useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -50,15 +51,14 @@ const Login = ({ navigation }) => {
   const onSubmit = async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
+      setIsLoggedIn(true);
       reset({
         email: "",
         password: ""
       });
-      setIsLoggedIn(true);
       console.log("logged in successfully");
     } catch (error) {
       setIsLoggedIn(false);
-
       if (error.code === "auth/too-many-requests") {
         setLoginError(
           "Too many request, Please reset Password or Try again later"
@@ -172,7 +172,7 @@ const Login = ({ navigation }) => {
               </Text>
               <View className="mb-3">
                 <Button
-                  onPress={HandleGetStore}
+                  onPress={() => Linking.openURL("whatsapp://chat/jane")}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -180,7 +180,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
-                  // onPress={HandleStore}
+                  onPress={() => Linking.openURL("https://google.com")}
                   bgColor="white"
                   text="Login with Google"
                   icon={
