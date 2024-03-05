@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Linking
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Logo } from "../../components/Layout";
@@ -20,7 +20,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FIREBASE_AUTH } from "../../../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 const Login = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -37,16 +37,36 @@ const Login = ({ navigation }) => {
       password: ""
     }
   });
+  const auth = FIREBASE_AUTH;
+  // console.log(auth.currentUser.getIdToken());
 
-  const HandleGetStore = async () => {
+  const generateToken = async () => {
     try {
-      const respon = await AsyncStorage.getItem("mykey");
-      console.log(respon);
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        console.log(token);
+        return token;
+      } else {
+        console.log("No user is currently signed in.");
+      }
+    } catch (error) {
+      console.error("Error generating token:", error);
+    }
+  };
+
+  const storeUser = async () => {
+    try {
+      const response = await AsyncStorage.setItem(
+        "user",
+        JSON.stringify({
+          token: generateToken()
+        })
+      );
     } catch (error) {
       console.log(error);
     }
   };
-  const auth = FIREBASE_AUTH;
 
   const onSubmit = async (data) => {
     try {
@@ -56,7 +76,9 @@ const Login = ({ navigation }) => {
         email: "",
         password: ""
       });
-      console.log("logged in successfully");
+      navigation.navigate("BottomNavigation");
+      storeUser();
+      console.log("logged in successfully", isLoggedIn);
     } catch (error) {
       setIsLoggedIn(false);
       if (error.code === "auth/too-many-requests") {

@@ -1,26 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { useState } from "react";
 
-const useOptions = (url) => {
+const storeToken = async () => {
+  await AsyncStorage.setItem(
+    "token_user",
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODM2MjliMzc4OGY4NThkYjNmMDZkZjExYzZhMzMwNyIsInN1YiI6IjY1ZDg2YmE4MTQ5NTY1MDE3YmY2MDNlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0xPnrIFrlKiYkW2rRl0YuwR0ChK1T_GXQmOCgjSBvTk"
+  );
+};
+
+storeToken();
+
+const useOptions = async (url) => {
+  const token = await AsyncStorage.getItem("token_user");
   return {
     method: "GET",
     url: url,
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODM2MjliMzc4OGY4NThkYjNmMDZkZjExYzZhMzMwNyIsInN1YiI6IjY1ZDg2YmE4MTQ5NTY1MDE3YmY2MDNlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0xPnrIFrlKiYkW2rRl0YuwR0ChK1T_GXQmOCgjSBvTk"
+      Authorization: `Bearer ${token}`
     }
   };
 };
 
-const storeToken = async () => {
-  await AsyncStorage.setItem("token-user", "tokenuser");
-};
-
 export const getMovies = async (url, setData) => {
   try {
-    await axios(useOptions(url)).then((response) => {
+    await axios(await useOptions(url)).then((response) => {
       setData({
         movies: response.data.results
       });
@@ -32,7 +36,7 @@ export const getMovies = async (url, setData) => {
 
 export const getGenre = async (url, setData) => {
   try {
-    await axios(useOptions(url)).then((response) => {
+    await axios(await useOptions(url)).then((response) => {
       setData(response.data.genres);
     });
   } catch (error) {
@@ -49,11 +53,16 @@ export const getAllPeople = async (allPeopleUrl, setData) => {
     while (true) {
       // console.log(allPeopleUrl);
 
-      const response = await axios(useOptions(`${allPeopleUrl}page=${40}`));
+      const response = await axios(
+        await useOptions(`${allPeopleUrl}page=${40}`)
+      );
 
       for (const person of response.data.results) {
         // console.log(currentPage, person.id);
-        console.log(response.data.page === response.data.total_pages, person.id);
+        console.log(
+          response.data.page === response.data.total_pages,
+          person.id
+        );
 
         const { data } = await axios(
           useOptions(
