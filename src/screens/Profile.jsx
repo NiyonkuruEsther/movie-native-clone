@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Feather from "react-native-vector-icons/Feather";
 import { Pressable } from "react-native";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
@@ -38,16 +38,17 @@ const Profile = () => {
         </View>
         <View className="flex-row gap-x-3">
           <Feather name="user" color="white" size={25} />
-          <Pressable onPress={() => user.delete()}>
-            <Text className="text-white  text-lg opacity-95">
-              Acccount Settings
-            </Text>
+          <Pressable onPress={() => auth.signOut()}>
+            <Text className="text-white  text-lg opacity-95">Logout</Text>
           </Pressable>
         </View>
-        <View className="flex-row gap-x-3">
+        <Pressable
+          onPress={() => console.log(user)}
+          className="flex-row gap-x-3"
+        >
           <Feather name="settings" color="white" size={25} />
           <Text className="text-white  text-lg opacity-95">App Settings</Text>
-        </View>
+        </Pressable>
         <View className="flex-row gap-x-3">
           <Feather name="globe" color="white" size={25} />
           <Text className="text-white  text-lg opacity-95">Language</Text>

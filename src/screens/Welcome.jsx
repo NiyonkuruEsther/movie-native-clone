@@ -1,9 +1,24 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Logo } from "../components/Layout";
 import { Button } from "../components";
+import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import {
+  getAuth,
+  getRedirectResult,
+  onAuthStateChanged,
+  updateCurrentUser
+} from "firebase/auth";
 
 const Welcome = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    console.log(auth.config);
+  }, []);
+
   return (
     <View className="bg-bgDarkPrimary flex-1 justify-between">
       <View className={``}>
@@ -33,7 +48,9 @@ const Welcome = ({ navigation }) => {
         <Button
           text="Watch Movie"
           bgColor="yellowPrimary"
-          onPress={() => navigation.push("BottomNavigation")}
+          onPress={() =>
+            navigation.push(`${user === null ? "Login" : "BottomNavigation"}`)
+          }
         />
         <TouchableOpacity onPress={() => navigation.push("Login")}>
           <Text className="text-white text-center">Sign In</Text>

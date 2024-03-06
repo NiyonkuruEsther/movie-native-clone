@@ -18,7 +18,7 @@ import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FIREBASE_AUTH } from "../../../FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 
@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
       const user = auth.currentUser;
       if (user) {
         const token = await user.getIdToken();
-        console.log(token);
+        console.log(auth);
         return token;
       } else {
         console.log("No user is currently signed in.");
@@ -55,11 +55,12 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const storeUser = async () => {
+  const storeUser = async (user) => {
     try {
       const response = await AsyncStorage.setItem(
         "user",
         JSON.stringify({
+          ...user,
           token: generateToken()
         })
       );
@@ -71,30 +72,35 @@ const Login = ({ navigation }) => {
   const onSubmit = async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
+
       setIsLoggedIn(true);
       reset({
         email: "",
         password: ""
       });
+      const user = FIREBASE_AUTH.currentUser;
+      storeUser(user);
       navigation.navigate("BottomNavigation");
-      storeUser();
+
       console.log("logged in successfully", isLoggedIn);
     } catch (error) {
       setIsLoggedIn(false);
+      console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
+yu7ii88
       if (error.code === "auth/too-many-requests") {
         setLoginError(
           "Too many request, Please reset Password or Try again later"
         );
-        console.log(error.code, isLoggedIn);
+        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
       } else if (error.code === "auth/invalid-credential") {
         setLoginError("Invalid credentials");
-        console.log(error.code, isLoggedIn);
+        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
       } else {
-        console.log(error);
+        console.log(isLoggedIn !== null || loginError);
       }
     }
     {
-      isLoggedIn !== null &&
+      (isLoggedIn !== null || loginError) &&
         showMessage({
           message: !isLoggedIn ? loginError : "Logged in successfully",
           type: !isLoggedIn ? "danger" : "success"
@@ -106,18 +112,16 @@ const Login = ({ navigation }) => {
     <SafeAreaView
       className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
-      {isLoggedIn !== null && (
-        <FlashMessage
-          duration={3000}
-          position={"top"}
-          message={
-            !isLoggedIn && loginError
-              ? { message: loginError }
-              : { message: "Logged in successfully" }
-          }
-          textStyle={{ textAlign: "center" }}
-        />
-      )}
+      <FlashMessage
+        duration={3000}
+        position={"top"}
+        message={
+          !isLoggedIn && loginError
+            ? { message: loginError }
+            : { message: "Logged in successfully" }
+        }
+        textStyle={{ textAlign: "center" }}
+      />
 
       <KeyboardAvoidingView behavior="position" className={`flex-1`}>
         <View className={`justify-between h-full `}>
