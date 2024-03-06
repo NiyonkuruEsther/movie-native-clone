@@ -18,7 +18,12 @@ import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FIREBASE_AUTH } from "../../../FirebaseConfig";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  sendSignInLinkToEmail,
+  signInWithEmailAndPassword,
+  signInWithEmailLink
+} from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 
@@ -85,7 +90,6 @@ const Login = ({ navigation }) => {
     } catch (error) {
       setIsLoggedIn(false);
       console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
-yu7ii88
       if (error.code === "auth/too-many-requests") {
         setLoginError(
           "Too many request, Please reset Password or Try again later"
@@ -106,6 +110,9 @@ yu7ii88
         });
     }
   };
+
+
+
 
   return (
     <SafeAreaView
@@ -181,7 +188,10 @@ yu7ii88
                   </Text>
                 )}
 
-                <TouchableOpacity className="self-end pt-3">
+                <TouchableOpacity
+                  className="self-end pt-3"
+                  onPress={() => navigation.navigate("ResetPassword")}
+                >
                   <Text className="text-yellowPrimary">Forgot Password?</Text>
                 </TouchableOpacity>
               </View>
@@ -197,7 +207,7 @@ yu7ii88
               </Text>
               <View className="mb-3">
                 <Button
-                  onPress={() => Linking.openURL("whatsapp://chat/jane")}
+                  onPress={() => signInWithEmailLink(auth, email)}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -205,7 +215,7 @@ yu7ii88
               </View>
               <View className="mb-3">
                 <Button
-                  onPress={() => Linking.openURL("https://google.com")}
+                  onPress={handleEmailSignIn}
                   bgColor="white"
                   text="Login with Google"
                   icon={
