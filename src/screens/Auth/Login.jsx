@@ -72,7 +72,6 @@ const Login = ({ navigation }) => {
   const onSubmit = async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-
       setIsLoggedIn(true);
       reset({
         email: "",
