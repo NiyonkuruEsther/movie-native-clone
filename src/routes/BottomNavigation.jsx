@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const MoviesOverviewStack = () => {
+ 
   return (
     <Stack.Navigator
       screenOptions={{

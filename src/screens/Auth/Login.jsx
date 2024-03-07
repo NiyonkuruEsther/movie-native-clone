@@ -17,17 +17,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import { FIREBASE_APP, FIREBASE_AUTH } from "../../../FirebaseConfig";
 import {
   getAuth,
   sendSignInLinkToEmail,
   signInWithEmailAndPassword,
-  signInWithEmailLink
+  signInWithEmailLink,
+  signInWithPopup,
+  GoogleAuthProvider
 } from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 
-const Login = ({ navigation }) => {
+// const provider = new GoogleAuthProvider();
+
+const Login = ({ navigation, promptAsync }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [loginError, setLoginError] = useState("");
   const {
@@ -74,9 +78,27 @@ const Login = ({ navigation }) => {
     }
   };
 
+  // useEffect(() => {
+  //   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+  //   provider.setCustomParameters({
+  //     login_hint: "user@example.com"
+  //   });
+  // }, []);
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     const result = await signInWithPopup(provider);
+  //     const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     const token = credential.accessToken;
+  //     const user = result.user;
+  //     console.log("Successfully signed in with Google:", user);
+  //   } catch (error) {
+  //     console.error("Error signing in with Google:", error);
+  //   }
+  // };
+
   const onSubmit = async (data) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      await signInWithEmailAndPassword(getAuth(), data.email, data.password);
       setIsLoggedIn(true);
       reset({
         email: "",
@@ -110,9 +132,6 @@ const Login = ({ navigation }) => {
         });
     }
   };
-
-
-
 
   return (
     <SafeAreaView
@@ -207,7 +226,7 @@ const Login = ({ navigation }) => {
               </Text>
               <View className="mb-3">
                 <Button
-                  onPress={() => signInWithEmailLink(auth, email)}
+                  onPress={() => promptAsync()}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -215,7 +234,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
-                  onPress={handleEmailSignIn}
+                  onPress={() => promptAsync()}
                   bgColor="white"
                   text="Login with Google"
                   icon={

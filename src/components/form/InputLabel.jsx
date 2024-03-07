@@ -1,24 +1,29 @@
-import { View, Text } from "react-native";
+import { View, Text, Keyboard } from "react-native";
 import { TextInput } from "react-native-paper";
-import React from "react";
+import React, { useState } from "react";
 import { widthFull } from "../../screens/Home";
 
 const InputLabel = ({ iconName, label, secureTextEntry, onChange, value }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <View style={{ width: widthFull - 40 }}>
       <TextInput
         label={label}
         mode="flat"
         textColor="white"
-        secureTextEntry={secureTextEntry}
+        secureTextEntry={!showPassword && secureTextEntry}
         onChangeText={onChange}
         value={value}
         right={
           <TextInput.Icon
-            icon={iconName}
+            icon={
+              !secureTextEntry ? iconName : showPassword ? "eye" : "eye-off"
+            }
             size={25}
             color="#FDD031"
             style={{ paddingHorizontal: 0 }}
+            onPress={() => setShowPassword(!showPassword)}
           />
         }
         style={{
@@ -29,7 +34,7 @@ const InputLabel = ({ iconName, label, secureTextEntry, onChange, value }) => {
         theme={{
           colors: {
             primary: "#C2C3C7",
-            color: "black",
+            text: "black",
             underlineColor: "transparent"
           }
         }}

@@ -7,11 +7,20 @@ import { SignUp, Login, ResetPassword } from "../screens/Auth";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BottomNavigation from "./BottomNavigation";
 import { getAuth } from "firebase/auth";
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const Navigation = () => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId:
+      "125179321542-d6atbb0q9t923a9ilrgnc7igep80b0q5.apps.googleusercontent.com",
+    androidClientId:
+      "125179321542-d6atbb0q9t923a9ilrgnc7igep80b0q5.apps.googleusercontent.com"
+  });
 
   useEffect(() => {
     const auth = getAuth();
@@ -24,6 +33,13 @@ const Navigation = () => {
     };
 
     fetchData();
+
+    if (response?.type == "success") {
+      console.log("Success");
+    }
+    if (response?.error) {
+      console.log(response.error);
+    }
   }, []);
 
   return (
@@ -37,7 +53,9 @@ const Navigation = () => {
         </Stack.Screen>
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Login">
+          {(props) => <Login {...props} promptAsync={promptAsync} />}
+        </Stack.Screen>
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
       </Stack.Navigator>
