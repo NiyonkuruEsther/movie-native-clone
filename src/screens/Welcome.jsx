@@ -49,12 +49,14 @@ const Welcome = ({ navigation }) => {
           text="Watch Movie"
           bgColor="yellowPrimary"
           onPress={() =>
-            navigation.push(`${user === null ? "Login" : "BottomNavigation"}`)
+            navigation.push(
+              `${user === null ? "BottomNavigation" : "BottomNavigation"}`
+            )
           }
         />
-        <TouchableOpacity onPress={() => navigation.push("Login")}>
+        {/* <TouchableOpacity onPress={() => navigation.push("Login")}>
           <Text className="text-white text-center">Sign In</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

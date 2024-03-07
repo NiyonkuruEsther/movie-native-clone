@@ -7,11 +7,14 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   ScrollView,
-  Image
+  Image,
+  Modal,
+  Pressable
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MoviesData } from "../../data";
 import { heightFull, widthFull } from "../Home";
 import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
@@ -21,9 +24,8 @@ import { Skeleton } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MoviesOverview = ({ navigation }) => {
-
-const getToken =  AsyncStorage.getItem("token-user")
-
+  const getToken = AsyncStorage.getItem("token-user");
+  const [showModal, setShowModal] = useState(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [newReleasedMovies, setNewRelesedMovies] = useState({
@@ -79,7 +81,40 @@ const getToken =  AsyncStorage.getItem("token-user")
             <Logo style={"text-2xl"} />
           </TouchableOpacity>
           <View className="flex-row gap-x-3 pr-5">
-            <Feather name="bookmark" size={25} color="white" />
+            <FontAwesome
+              name="bookmark-o"
+              size={25}
+              color="white"
+              onPress={() => setShowModal(true)}
+            />
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={showModal}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setShowModal(false);
+              }}
+              style={{ position: "relative" }}
+            >
+              <SafeAreaView className="bg-bgDarkSecondary absolute right-0 bottom-0 w-full h-1/3">
+                <View className="flex-row justify-between p-5">
+                  <Text className="text-white text-lg ">Notifications</Text>
+                  <Pressable onPress={() => setShowModal(false)}>
+                    <Text style={{ color: "white" }}>
+                      <FontAwesome name="close" size={20} />
+                    </Text>
+                  </Pressable>
+                </View>
+
+                <Text className="px-5 text-white">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Accusantium pariatur fugit nam, eum distinctio officiis
+                  doloremque voluptatibus sunt dicta, rem beatae illum neque
+                  rerum repudiandae labore mollitia aliquid animi reprehenderit.
+                </Text>
+              </SafeAreaView>
+            </Modal>
             <Feather name="bell" size={25} color="white" />
           </View>
         </View>
