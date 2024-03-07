@@ -16,3 +16,6 @@ module.exports = {
   },
   plugins: []
 };
+
+// "@rneui/base": "^4.0.0-rc.8",
+// "@rneui/themed": "^4.0.0-rc.8",

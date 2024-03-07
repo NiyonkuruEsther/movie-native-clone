@@ -7,12 +7,12 @@ import { File } from "../screens/File";
 import ViewMoreMovies from "../screens/movies/ViewMoreMovies";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SingleMovieOverview from "../screens/movies/SingleMovieOverview";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const MoviesOverviewStack = () => {
- 
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,6 +26,20 @@ const MoviesOverviewStack = () => {
         component={SingleMovieOverview}
       />
     </Stack.Navigator>
+  );
+};
+
+const Drawer = createDrawerNavigator();
+
+const DrawerNavigation = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="AppSettings" component={AppSettings} />
+      <Drawer.Screen name="Inbox" component={Inbox} />
+
+      {/* <Drawer.Screen name="Notifications" component={NotificationsScreen} /> */}
+    </Drawer.Navigator>
   );
 };
 
@@ -87,15 +101,16 @@ const BottomNavigation = () => {
           )
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
+      {/* <Tab.Screen
+        name="DrawerNavigation"
+        component={DrawerNavigation}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="appstore-o" size={size} color={color} />
           )
         }}
-      />
+      /> */}
+      <DrawerNavigation />
     </Tab.Navigator>
   );
 };
