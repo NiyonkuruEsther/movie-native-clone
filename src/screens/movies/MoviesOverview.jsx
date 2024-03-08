@@ -22,6 +22,7 @@ import { Logo } from "../../components/Layout";
 import { getGenre, getMovies } from "../../fetch";
 import { Skeleton } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TabNavigation from "../../routes/TabNavigation";
 
 const MoviesOverview = ({ navigation }) => {
   const getToken = AsyncStorage.getItem("token-user");
@@ -74,77 +75,7 @@ const MoviesOverview = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
-      <View className="pl-5 pt-4">
-        <View className="flex-row justify-between items-center">
-          <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-            <Logo style={"text-2xl"} />
-          </TouchableOpacity>
-          <View className="flex-row gap-x-3 pr-5">
-            <FontAwesome
-              name="bookmark-o"
-              size={25}
-              color="white"
-              onPress={() => setShowModal(true)}
-            />
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={showModal}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setShowModal(false);
-              }}
-              style={{ position: "relative" }}
-            >
-              <SafeAreaView className="bg-bgDarkSecondary absolute right-0 bottom-0 w-full h-1/3">
-                <View className="flex-row justify-between p-5">
-                  <Text className="text-white text-lg ">Notifications</Text>
-                  <Pressable onPress={() => setShowModal(false)}>
-                    <Text style={{ color: "white" }}>
-                      <FontAwesome name="close" size={20} />
-                    </Text>
-                  </Pressable>
-                </View>
-
-                <Text className="px-5 text-white">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusantium pariatur fugit nam, eum distinctio officiis
-                  doloremque voluptatibus sunt dicta, rem beatae illum neque
-                  rerum repudiandae labore mollitia aliquid animi reprehenderit.
-                </Text>
-              </SafeAreaView>
-            </Modal>
-            <Feather name="bell" size={25} color="white" />
-          </View>
-        </View>
-        <FlatList
-          ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
-          data={navData}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity
-              onPress={() => setActiveIndex(index)}
-              className={`
-            ${
-              activeIndex === index &&
-              "text-yellowPrimary border-b-2 pb-2 border-yellowPrimary"
-            } pt-4`}
-              underlayColor={"white"}
-            >
-              <Text
-                className={` ${
-                  activeIndex === index ? "text-yellowPrimary " : "text-white"
-                } text-base`}
-              >
-                <Text>{item.name}</Text>
-              </Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+    <View className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
       <ScrollView
         className="flex-1"
         style={{ height: heightFull }}
@@ -234,7 +165,7 @@ const MoviesOverview = ({ navigation }) => {
         <Feather name="folder" size={25} color="white" />
         <Image source={require("../../../assets/menu.png")} />
       </View> */}
-    </SafeAreaView>
+    </View>
   );
 };
 

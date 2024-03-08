@@ -1,15 +1,30 @@
 import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Feather from "react-native-vector-icons/Feather";
 import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import Entypo from "react-native-vector-icons/Entypo";
+import { useDarkMode } from "../../context/DarkMode";
+
 const Profile = () => {
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
 
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  useEffect(() => {
+    console.log("Esther");
+  }, [toggleDarkMode]);
+
   return (
     <View className="bg-bgGrayLighter flex-1">
-      <View className="bg-bgDarkSecondary pt-16 gap-y-4 mb-5 ">
-        <Text className="text-white text-xl mb-5 px-5">More</Text>
+      <View className="bg-bgDarkSecondary pt-16 gap-y-4 mb-5 flex-row justify-between px-5">
+        <Text className="text-white text-xl mb-5 ">More</Text>
+        <Entypo
+          onPress={toggleDarkMode}
+          name={!isDarkMode ? `light-up` : `moon`}
+          color={"#FDD031"}
+          size={20}
+        />
       </View>
       <View className="px-5 flex-row gap-x-5 justify-between pb-5">
         <Image
