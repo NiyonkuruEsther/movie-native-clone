@@ -35,10 +35,10 @@ const Home = ({ isLoading }) => {
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity className="gap-y-4 px-4">
-        <Text className="text-white text-3xl font-bold">
+        <Text className="text-black dark:text-white text-3xl font-bold">
           {Data[index].title}
         </Text>
-        <Text className=" text-[19px] text-white">
+        <Text className=" text-[19px] text-black dark:text-white ">
           {Data[index].description}
         </Text>
       </TouchableOpacity>
@@ -105,7 +105,7 @@ const Home = ({ isLoading }) => {
     </ImageBackground>
   ) : (
     // loader
-    <TouchableOpacity className="px-4 h-[812px] bg-bgDarkPrimary overflow-hidden">
+    <TouchableOpacity className="px-4 h-[812px]  bg-gray-300 dark:bg-bgDarkPrimary  overflow-hidden">
       <TouchableOpacity
         className={`h-[${heightFull}px] flex-1 justify-center items-center overflow-hidden`}
       >

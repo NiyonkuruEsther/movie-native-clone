@@ -8,7 +8,11 @@ const Logo = ({ style }) => {
         <Text className={`font-bold ${style || "text-5xl"}`}>M</Text>
       </View>
 
-      <Text className={`font-semibold ${style || "text-5xl"} text-white`}>
+      <Text
+        className={`font-semibold ${
+          style || "text-5xl"
+        } text-black dark:text-white `}
+      >
         Muvi
       </Text>
     </View>

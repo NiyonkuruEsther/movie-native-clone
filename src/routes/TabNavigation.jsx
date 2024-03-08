@@ -47,9 +47,11 @@ const TabNavigation = () => {
               }}
               style={{ position: "relative" }}
             >
-              <SafeAreaView className="bg-bgDarkSecondary absolute right-0 bottom-0 w-full h-1/3">
+              <SafeAreaView className="bg-white dark:bg-bgDarkSecondary absolute right-0 bottom-0 w-full h-1/3">
                 <View className="flex-row justify-between p-5">
-                  <Text className="text-white text-lg ">Notifications</Text>
+                  <Text className="text-black dark:text-white text-lg ">
+                    Notifications
+                  </Text>
                   <Pressable onPress={() => setShowModal(false)}>
                     <Text style={{ color: "white" }}>
                       <FontAwesome name="close" size={20} />
@@ -57,7 +59,7 @@ const TabNavigation = () => {
                   </Pressable>
                 </View>
 
-                <Text className="px-5 text-white">
+                <Text className="px-5 text-black dark:text-white ">
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Accusantium pariatur fugit nam, eum distinctio officiis
                   doloremque voluptatibus sunt dicta, rem beatae illum neque

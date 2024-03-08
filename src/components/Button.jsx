@@ -17,9 +17,9 @@ const Button = ({ icon, bgColor, text, onPress }) => {
     >
       {icon}
       <Text
-        className={`text-center ${bgColor === "ebonyBlack" && "text-white"} ${
-          icon && "pl-3"
-        }`}
+        className={`text-center ${
+          bgColor === "ebonyBlack" && "text-black dark:text-white "
+        } ${icon && "pl-3"}`}
       >
         {text}
       </Text>

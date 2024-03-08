@@ -20,11 +20,11 @@ const Profile = () => {
 
   return (
     <View className="bg-bgGrayLighter flex-1">
-      <View className="bg-bgDarkSecondary pt-16 gap-y-4 mb-5 flex-row justify-between px-5">
-        <Text className="text-white  text-xl mb-5 ">More</Text>
+      <View className="bg-white dark:bg-bgDarkSecondary pt-16 gap-y-4 mb-5 flex-row justify-between px-5">
+        <Text className="text-black dark:text-white text-xl mb-5 ">More</Text>
         <Entypo
           onPress={toggleColorScheme}
-          name={!isDarkMode ? `light-up` : `moon`}
+          name={colorScheme === "dark" ? `light-up` : `moon`}
           color={"#FDD031"}
           size={20}
         />
@@ -39,7 +39,7 @@ const Profile = () => {
           className="w-[30vw] rounded-lg"
         />
         <View className=" justify-center flex-1">
-          <Text className="text-white  font-semibold text-lg">
+          <Text className="text-black dark:text-white font-semibold text-lg">
             Jonathan Doe
           </Text>
           <Text className="text-grayPrimary ">jon.doe@gmail.com</Text>
@@ -50,15 +50,19 @@ const Profile = () => {
         </TouchableOpacity>
       </View>
       {/* Menu */}
-      <View className="bg-bgDarkPrimary p-5 flex-1 justify-evenly">
+      <View className=" bg-gray-300 dark:bg-bgDarkPrimary  p-5 flex-1 justify-evenly">
         <View className="flex-row gap-x-3">
           <Feather name="inbox" color="white" size={25} />
-          <Text className="text-white   text-lg opacity-95">Inbox </Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Inbox{" "}
+          </Text>
         </View>
         <View className="flex-row gap-x-3">
           <Feather name="user" color="white" size={25} />
           <Pressable onPress={() => auth.signOut()}>
-            <Text className="text-white   text-lg opacity-95">Logout</Text>
+            <Text className="text-black dark:text-white  text-lg opacity-95">
+              Logout
+            </Text>
           </Pressable>
         </View>
         <Pressable
@@ -66,15 +70,21 @@ const Profile = () => {
           className="flex-row gap-x-3"
         >
           <Feather name="settings" color="white" size={25} />
-          <Text className="text-white   text-lg opacity-95">App Settings</Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            App Settings
+          </Text>
         </Pressable>
         <View className="flex-row gap-x-3">
           <Feather name="globe" color="white" size={25} />
-          <Text className="text-white   text-lg opacity-95">Language</Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Language
+          </Text>
         </View>
         <View className="flex-row gap-x-3">
           <Feather name="info" color="white" size={25} />
-          <Text className="text-white   text-lg opacity-95">Help, FAQ</Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Help, FAQ
+          </Text>
         </View>
       </View>
     </View>

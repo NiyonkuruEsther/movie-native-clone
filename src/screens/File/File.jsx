@@ -64,7 +64,9 @@ const File = ({ navigation }) => {
             >
               <Text
                 className={` ${
-                  activeIndex === index ? "text-yellowPrimary " : "text-white"
+                  activeIndex === index
+                    ? "text-yellowPrimary "
+                    : "text-black dark:text-white "
                 } text-base`}
               >
                 <Text>{item}</Text>
@@ -76,7 +78,7 @@ const File = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
-      <ScrollView className="bg-bgDarkPrimary p-5 ">
+      <ScrollView className=" bg-gray-300 dark:bg-bgDarkPrimary  p-5 ">
         {activeIndex === 0 ? <MyList /> : <Downloads />}
       </ScrollView>
     </SafeAreaView>

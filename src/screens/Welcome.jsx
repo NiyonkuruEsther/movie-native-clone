@@ -20,7 +20,7 @@ const Welcome = ({ navigation }) => {
   }, []);
 
   return (
-    <View className="bg-bgDarkPrimary flex-1 justify-between">
+    <View className=" bg-gray-300 dark:bg-bgDarkPrimary  flex-1 justify-between">
       <View className={``}>
         <View className="bg-[#1F2123] pt-16 pb-4">
           <Logo style="text-2xl" />
@@ -35,7 +35,7 @@ const Welcome = ({ navigation }) => {
           </View>
 
           <View className="gap-y-3 px-5 ">
-            <Text className="text-white font-bold text-3xl text-center">
+            <Text className="text-black dark:text-white font-bold text-3xl text-center">
               Welcome to Muvi
             </Text>
             <Text className="text-[#A4A6A8] text-lg text-center">
@@ -55,7 +55,7 @@ const Welcome = ({ navigation }) => {
           }
         />
         {/* <TouchableOpacity onPress={() => navigation.push("Login")}>
-          <Text className="text-white text-center">Sign In</Text>
+          <Text className="text-black dark:text-white text-center">Sign In</Text>
         </TouchableOpacity> */}
       </View>
     </View>

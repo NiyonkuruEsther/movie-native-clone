@@ -83,7 +83,7 @@ const MoviesOverview = ({ navigation }) => {
       >
         {/* Header */}
         <ScrollView>
-          <View className="bg-bgDarkPrimary flex-1 pt-5">
+          <View className=" bg-gray-300 dark:bg-bgDarkPrimary  flex-1 pt-5">
             {/* Tags */}
 
             <FlatList
@@ -95,7 +95,9 @@ const MoviesOverview = ({ navigation }) => {
                     index === 0 ? "ml-5" : "ml-3"
                   } `}
                 >
-                  <Text className={` p-3 text-white `}>{item.name}</Text>
+                  <Text className={` p-3 text-black dark:text-white `}>
+                    {item.name}
+                  </Text>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -157,7 +159,7 @@ const MoviesOverview = ({ navigation }) => {
 
       {/* Bottom nav */}
       {/* <View
-        className=" flex-row justify-between bg-bgDarkPrimary absolute bottom-0 px-5 py-[4vh]"
+        className=" flex-row justify-between  bg-gray-300 dark:bg-bgDarkPrimary  absolute bottom-0 px-5 py-[4vh]"
         style={{ width: widthFull }}
       >
         <Feather name="home" size={25} color="#FDD031" />

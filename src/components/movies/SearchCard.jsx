@@ -26,7 +26,7 @@ const SearchCard = ({ item, genres }) => {
         <Text
           numberOfLines={1}
           ellipsizeMode="tail"
-          className="font-medium text-lg text-white"
+          className="font-medium text-lg text-black dark:text-white "
         >
           {item.original_title}
         </Text>

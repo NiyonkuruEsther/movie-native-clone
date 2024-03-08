@@ -8,21 +8,24 @@ const ViewMoreMovies = ({ route, navigation }) => {
   const { title, movies } = route.params;
 
   return (
-    <View className="bg-bgDarkSecondary flex-1">
+    <View className="bg-white dark:bg-bgDarkSecondary flex-1">
       <TouchableOpacity
         className="pt-16 pb-5 flex-row items-center px-5 gap-x-2"
         onPress={() => navigation.goBack()}
       >
         <AntDesign name="arrowleft" color="#FDD031" size={25} />
-        <Text className="text-white text-2xl ">{title}</Text>
+        <Text className="text-black dark:text-white text-2xl ">{title}</Text>
       </TouchableOpacity>
-      <View style={{ flex: 1 }} className="bg-bgDarkPrimary ">
+      <View
+        style={{ flex: 1 }}
+        className=" bg-gray-300 dark:bg-bgDarkPrimary  "
+      >
         <FlatList
           data={movies}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               className="w-[40vw] mx-5 mt-5"
-              style={{alignItems: 'center'}}
+              style={{ alignItems: "center" }}
               onPress={() =>
                 navigation.navigate("SingleMovieOverview", { movie: item })
               }
@@ -33,10 +36,16 @@ const ViewMoreMovies = ({ route, navigation }) => {
                 index={index}
                 horizontalDisplay={false}
               />
-              <Text className="text-white pt-3" numberOfLines={1}>
+              <Text
+                className="text-black dark:text-white pt-3"
+                numberOfLines={1}
+              >
                 {item.original_title}
               </Text>
-              <Text className="text-white opacity-80 pt-px" numberOfLines={1}>
+              <Text
+                className="text-black dark:text-white opacity-80 pt-px"
+                numberOfLines={1}
+              >
                 {item.overview}
               </Text>
             </TouchableOpacity>

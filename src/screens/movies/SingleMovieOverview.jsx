@@ -52,7 +52,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
           >
             <AntDesign name="arrowleft" color="#FDD031" size={25} />
             <Text
-              className="text-white text-2xl font-semibold w-[70vw]"
+              className="text-black dark:text-white text-2xl font-semibold w-[70vw]"
               numberOfLines={1}
             >
               {movie.original_title}
@@ -62,7 +62,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
             <Octicons name="play" size={50} color="#FDD031" />
           </View>
           <View className="pb-4 px-5">
-            <Text className="text-white text-3xl font-semibold">
+            <Text className="text-black dark:text-white text-3xl font-semibold">
               {movie.original_title}
             </Text>
             <View className="flex-row gap-x-5 pt-2 items-center">
@@ -81,7 +81,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
       </ImageBackground>
 
       {/* Nav menu */}
-      <View className=" bg-bgDarkSecondary w-screen">
+      <View className=" bg-white dark:bg-bgDarkSecondary w-screen">
         <FlatList
           className="px-5"
           columnWrapperStyle={{
@@ -100,7 +100,9 @@ const SingleMovieOverview = ({ route, navigation }) => {
             >
               <Text
                 className={` ${
-                  activeIndex === index ? "text-yellowPrimary " : "text-white"
+                  activeIndex === index
+                    ? "text-yellowPrimary "
+                    : "text-black dark:text-white "
                 } text-base`}
               >
                 <Text>{item}</Text>
@@ -113,7 +115,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
         />
       </View>
 
-      <View className="bg-bgDarkPrimary h-full px-5 pt-5 ">
+      <View className=" bg-gray-300 dark:bg-bgDarkPrimary  h-full px-5 pt-5 ">
         {activeIndex === 0 ? (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
             {movie.overview}

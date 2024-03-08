@@ -90,7 +90,7 @@ const ResetPassword = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
+      className={`flex-1  bg-gray-300 dark:bg-bgDarkPrimary  px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
       <FlashMessage
         duration={3000}
@@ -109,7 +109,7 @@ const ResetPassword = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <AntDesign name="arrowleft" color="#FDD031" size={30} />
             </TouchableOpacity>
-            <Text className="text-white font-bold text-2xl">
+            <Text className="text-black dark:text-white font-bold text-2xl">
               Reset Password
             </Text>
           </View>
@@ -147,7 +147,7 @@ const ResetPassword = ({ navigation }) => {
               />
             </View>
             <View className="">
-              <Text className="text-white text-[10px] text-center mb-3">
+              <Text className="text-black dark:text-white text-[10px] text-center mb-3">
                 Don't want to reset?
               </Text>
               <View className="mb-3">
@@ -167,7 +167,7 @@ const ResetPassword = ({ navigation }) => {
             </View>
           </View>
           {/* <View className="flex-row justify-center items-center">
-            <Text className="text-white text-xs text-center ">
+            <Text className="text-black dark:text-white text-xs text-center ">
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity

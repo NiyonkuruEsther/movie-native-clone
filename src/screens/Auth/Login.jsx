@@ -135,7 +135,7 @@ const Login = ({ navigation, promptAsync }) => {
 
   return (
     <SafeAreaView
-      className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
+      className={`flex-1  bg-gray-300 dark:bg-bgDarkPrimary  px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
       <FlashMessage
         duration={3000}
@@ -154,10 +154,12 @@ const Login = ({ navigation, promptAsync }) => {
             <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
               <AntDesign name="arrowleft" color="#FDD031" size={30} />
             </TouchableOpacity>
-            <Text className="text-white font-bold text-2xl">Login</Text>
+            <Text className="text-black dark:text-white font-bold text-2xl">
+              Login
+            </Text>
           </View>
           <Logo style="text-3xl" />
-          <Text className="text-white text-lg text-center ">
+          <Text className="text-black dark:text-white text-lg text-center ">
             Please Login to enjoy more benefits and we won't let You go.
           </Text>
           <View className="gap-4">
@@ -221,7 +223,7 @@ const Login = ({ navigation, promptAsync }) => {
               />
             </View>
             <View className="">
-              <Text className="text-white text-[10px] text-center mb-3">
+              <Text className="text-black dark:text-white text-[10px] text-center mb-3">
                 or simply login with
               </Text>
               <View className="mb-3">
@@ -251,7 +253,7 @@ const Login = ({ navigation, promptAsync }) => {
             </View>
           </View>
           <View className="flex-row justify-center items-center">
-            <Text className="text-white text-xs text-center ">
+            <Text className="text-black dark:text-white text-xs text-center ">
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity

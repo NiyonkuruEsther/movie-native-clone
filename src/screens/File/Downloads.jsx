@@ -4,7 +4,7 @@ import React from "react";
 const Downloads = () => {
   return (
     <View>
-      <Text className="text-white">Downloads</Text>
+      <Text className="text-black dark:text-white ">Downloads</Text>
     </View>
   );
 };
