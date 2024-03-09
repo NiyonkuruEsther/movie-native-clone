@@ -7,11 +7,14 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   ScrollView,
-  Image
+  Image,
+  Modal,
+  Pressable
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {} from "react-native-safe-area-context";
 import Feather from "react-native-vector-icons/Feather";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { MoviesData } from "../../data";
 import { heightFull, widthFull } from "../Home";
 import MoviesOverviewlist from "../../components/movies/MoviesOverviewList";
@@ -19,11 +22,11 @@ import { Logo } from "../../components/Layout";
 import { getGenre, getMovies } from "../../fetch";
 import { Skeleton } from "@rneui/themed";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TabNavigation from "../../routes/TabNavigation";
 
 const MoviesOverview = ({ navigation }) => {
-
-const getToken =  AsyncStorage.getItem("token-user")
-
+  const getToken = AsyncStorage.getItem("token-user");
+  const [showModal, setShowModal] = useState(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [newReleasedMovies, setNewRelesedMovies] = useState({
@@ -72,44 +75,7 @@ const getToken =  AsyncStorage.getItem("token-user")
   }, []);
 
   return (
-    <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
-      <View className="pl-5 pt-4">
-        <View className="flex-row justify-between items-center">
-          <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
-            <Logo style={"text-2xl"} />
-          </TouchableOpacity>
-          <View className="flex-row gap-x-3 pr-5">
-            <Feather name="bookmark" size={25} color="white" />
-            <Feather name="bell" size={25} color="white" />
-          </View>
-        </View>
-        <FlatList
-          ItemSeparatorComponent={() => <View style={{ width: 30 }} />}
-          data={navData}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity
-              onPress={() => setActiveIndex(index)}
-              className={`
-            ${
-              activeIndex === index &&
-              "text-yellowPrimary border-b-2 pb-2 border-yellowPrimary"
-            } pt-4`}
-              underlayColor={"white"}
-            >
-              <Text
-                className={` ${
-                  activeIndex === index ? "text-yellowPrimary " : "text-white"
-                } text-base`}
-              >
-                <Text>{item.name}</Text>
-              </Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+    <View className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
       <ScrollView
         className="flex-1"
         style={{ height: heightFull }}
@@ -117,7 +83,7 @@ const getToken =  AsyncStorage.getItem("token-user")
       >
         {/* Header */}
         <ScrollView>
-          <View className="bg-bgDarkPrimary flex-1 pt-5">
+          <View className=" bg-gray-300 dark:bg-bgDarkPrimary  flex-1 pt-5">
             {/* Tags */}
 
             <FlatList
@@ -129,7 +95,9 @@ const getToken =  AsyncStorage.getItem("token-user")
                     index === 0 ? "ml-5" : "ml-3"
                   } `}
                 >
-                  <Text className={` p-3 text-white `}>{item.name}</Text>
+                  <Text className={` p-3 text-black dark:text-white `}>
+                    {item.name}
+                  </Text>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -191,7 +159,7 @@ const getToken =  AsyncStorage.getItem("token-user")
 
       {/* Bottom nav */}
       {/* <View
-        className=" flex-row justify-between bg-bgDarkPrimary absolute bottom-0 px-5 py-[4vh]"
+        className=" flex-row justify-between  bg-gray-300 dark:bg-bgDarkPrimary  absolute bottom-0 px-5 py-[4vh]"
         style={{ width: widthFull }}
       >
         <Feather name="home" size={25} color="#FDD031" />
@@ -199,7 +167,7 @@ const getToken =  AsyncStorage.getItem("token-user")
         <Feather name="folder" size={25} color="white" />
         <Image source={require("../../../assets/menu.png")} />
       </View> */}
-    </SafeAreaView>
+    </View>
   );
 };
 

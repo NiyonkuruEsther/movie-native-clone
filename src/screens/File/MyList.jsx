@@ -4,7 +4,7 @@ import React from "react";
 const MyList = () => {
   return (
     <View>
-      <Text className="text-white">MyList</Text>
+      <Text className="text-black dark:text-white ">MyList</Text>
     </View>
   );
 };

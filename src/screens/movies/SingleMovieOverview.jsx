@@ -13,6 +13,7 @@ import { getAllPeople, getMovies } from "../../fetch";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { heightFull, widthFull } from "../Home";
 import { Skeleton } from "@rneui/themed";
+import WebView from "react-native-webview";
 
 const SingleMovieOverview = ({ route, navigation }) => {
   const { movie } = route.params;
@@ -51,7 +52,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
           >
             <AntDesign name="arrowleft" color="#FDD031" size={25} />
             <Text
-              className="text-white text-2xl font-semibold w-[70vw]"
+              className="text-black dark:text-white text-2xl font-semibold w-[70vw]"
               numberOfLines={1}
             >
               {movie.original_title}
@@ -61,7 +62,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
             <Octicons name="play" size={50} color="#FDD031" />
           </View>
           <View className="pb-4 px-5">
-            <Text className="text-white text-3xl font-semibold">
+            <Text className="text-black dark:text-white text-3xl font-semibold">
               {movie.original_title}
             </Text>
             <View className="flex-row gap-x-5 pt-2 items-center">
@@ -80,7 +81,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
       </ImageBackground>
 
       {/* Nav menu */}
-      <View className=" bg-bgDarkSecondary w-screen">
+      <View className=" bg-white dark:bg-bgDarkSecondary w-screen">
         <FlatList
           className="px-5"
           columnWrapperStyle={{
@@ -99,7 +100,9 @@ const SingleMovieOverview = ({ route, navigation }) => {
             >
               <Text
                 className={` ${
-                  activeIndex === index ? "text-yellowPrimary " : "text-white"
+                  activeIndex === index
+                    ? "text-yellowPrimary "
+                    : "text-black dark:text-white "
                 } text-base`}
               >
                 <Text>{item}</Text>
@@ -112,7 +115,7 @@ const SingleMovieOverview = ({ route, navigation }) => {
         />
       </View>
 
-      <View className="bg-bgDarkPrimary h-full px-5 pt-5">
+      <View className=" bg-gray-300 dark:bg-bgDarkPrimary  h-full px-5 pt-5 ">
         {activeIndex === 0 ? (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
             {movie.overview}
@@ -132,18 +135,31 @@ const SingleMovieOverview = ({ route, navigation }) => {
                 animation="wave"
               />
             )}
-            <YoutubePlayer
-              height={heightFull / 2}
-              onReady={() => setIsVideoLoaded(true)}
-              // play={playing}
-              videoId={video.movies && video.movies[0].key}
-              // onChangeState={onStateChange}
+            <WebView
+              containerStyle={{ backgroundColor: "black" }}
+              style={{
+                backgroundColor: "black",
+                alignItems: "center",
+                height: heightFull,
+                flex: 1
+              }}
+              source={{
+                uri: `https://www.youtube.com/embed/${video.movies[0].key}?rel=0&autoplay=0&showinfo=0&controls=0`
+              }}
+              scalesPageToFit={true}
+              onLoadEnd={() => setIsVideoLoaded(true)}
+              // onResponderEnd={() => setIsVideoLoaded(true)}
+              allowsFullscreenVideo={true}
+              javaScriptEnabled={true}
             />
           </View>
         ) : (
           <Text className="text-gray-300 text-base" numberOfLines={4}>
             {people.map((item) => (
-              <Text key={item.id}> {`ssssssssssssssssss ${item.details.id}`}</Text>
+              <Text key={item.id}>
+                {" "}
+                {`ssssssssssssssssss ${item.details.id}`}
+              </Text>
             ))}
           </Text>
         )}

@@ -37,12 +37,12 @@ const Search = () => {
   };
 
   return (
-    <View className="bg-bgDarkPrimary flex-1">
-      <View className="bg-bgDarkSecondary pt-16 gap-y-4 mb-5">
-        <Text className="text-3xl text-white px-5">Search</Text>
+    <View className=" bg-gray-300 dark:bg-bgDarkPrimary  flex-1">
+      <View className="bg-white dark:bg-bgDarkSecondary pt-16 gap-y-4 mb-5">
+        <Text className="text-3xl text-black dark:text-white px-5">Search</Text>
         <View className="flex-row justify-between px-5 h-14 bg-[#2C2D31] items-center gap-x-3">
           <TextInput
-            className="flex-1 h-full text-white"
+            className="flex-1 h-full text-black dark:text-white "
             placeholder="Type title, category, years, etc..."
             placeholderTextColor={"gray"}
             selectionColor={"white"}
@@ -61,11 +61,11 @@ const Search = () => {
         </View>
       </View>
       <ScrollView className="flex-1 px-5">
-        <Text className="text-white text-xl mb-5">
+        <Text className="text-black dark:text-white text-xl mb-5">
           {searchKeyword ? "Search Results" : "Popular Movies"}
         </Text>
         <FlatList
-        className="mb-5"
+          className="mb-5"
           data={searchKeyword ? searchResults.movies : movies.movies}
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
           renderItem={({ item }) => (

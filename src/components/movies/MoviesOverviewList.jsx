@@ -16,7 +16,9 @@ const MoviesOverviewlist = ({
       {title && (
         <View className="flex-row justify-between items-center px-5">
           <View>
-            <Text className="font-bold text-white text-2xl">{title}</Text>
+            <Text className="font-bold text-black dark:text-white text-2xl">
+              {title}
+            </Text>
           </View>
           <TouchableOpacity
             onPress={() =>

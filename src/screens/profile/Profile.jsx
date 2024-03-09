@@ -1,11 +1,33 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import Feather from "react-native-vector-icons/Feather";
+import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import Entypo from "react-native-vector-icons/Entypo";
+import { useDarkMode } from "../../context/DarkMode";
+import { useColorScheme } from "nativewind";
+
 const Profile = () => {
+  const auth = FIREBASE_AUTH;
+  const user = auth.currentUser;
+
+  const { isDarkMode, toggleDarkMode, colors } = useDarkMode();
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  useEffect(() => {
+    toggleDarkMode();
+    console.log("Esther", isDarkMode);
+  }, [colorScheme]);
+
   return (
     <View className="bg-bgGrayLighter flex-1">
-      <View className="bg-bgDarkSecondary pt-16 gap-y-4 mb-5 ">
-        <Text className="text-white text-xl mb-5 px-5">More</Text>
+      <View className="bg-white dark:bg-bgDarkSecondary pt-16 gap-y-4 mb-5 flex-row justify-between px-5">
+        <Text className="text-black dark:text-white text-xl mb-5 ">More</Text>
+        <Entypo
+          onPress={toggleColorScheme}
+          name={colorScheme === "dark" ? `light-up` : `moon`}
+          color={"#FDD031"}
+          size={20}
+        />
       </View>
       <View className="px-5 flex-row gap-x-5 justify-between pb-5">
         <Image
@@ -17,7 +39,9 @@ const Profile = () => {
           className="w-[30vw] rounded-lg"
         />
         <View className=" justify-center flex-1">
-          <Text className="text-white font-semibold text-lg">Jonathan Doe</Text>
+          <Text className="text-black dark:text-white font-semibold text-lg">
+            Jonathan Doe
+          </Text>
           <Text className="text-grayPrimary ">jon.doe@gmail.com</Text>
         </View>
         <TouchableOpacity className="gap-x-2 flex-row items-center">
@@ -26,28 +50,41 @@ const Profile = () => {
         </TouchableOpacity>
       </View>
       {/* Menu */}
-      <View className="bg-bgDarkPrimary p-5 flex-1 justify-evenly">
+      <View className=" bg-gray-300 dark:bg-bgDarkPrimary  p-5 flex-1 justify-evenly">
         <View className="flex-row gap-x-3">
           <Feather name="inbox" color="white" size={25} />
-          <Text className="text-white  text-lg opacity-95">Inbox </Text>
-        </View>
-        <View className="flex-row gap-x-3">
-          <Feather name="user" color="white" size={25} />
-          <Text className="text-white  text-lg opacity-95">
-            Acccount Settings
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Inbox{" "}
           </Text>
         </View>
         <View className="flex-row gap-x-3">
-          <Feather name="settings" color="white" size={25} />
-          <Text className="text-white  text-lg opacity-95">App Settings</Text>
+          <Feather name="user" color="white" size={25} />
+          <Pressable onPress={() => auth.signOut()}>
+            <Text className="text-black dark:text-white  text-lg opacity-95">
+              Logout
+            </Text>
+          </Pressable>
         </View>
+        <Pressable
+          onPress={() => console.log(user)}
+          className="flex-row gap-x-3"
+        >
+          <Feather name="settings" color="white" size={25} />
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            App Settings
+          </Text>
+        </Pressable>
         <View className="flex-row gap-x-3">
           <Feather name="globe" color="white" size={25} />
-          <Text className="text-white  text-lg opacity-95">Language</Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Language
+          </Text>
         </View>
         <View className="flex-row gap-x-3">
           <Feather name="info" color="white" size={25} />
-          <Text className="text-white  text-lg opacity-95">Help, FAQ</Text>
+          <Text className="text-black dark:text-white  text-lg opacity-95">
+            Help, FAQ
+          </Text>
         </View>
       </View>
     </View>

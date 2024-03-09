@@ -3,9 +3,10 @@ import {
   Text,
   KeyboardAvoidingView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Logo } from "../../components/Layout";
@@ -16,13 +17,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FIREBASE_AUTH } from "../../../FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_APP, FIREBASE_AUTH } from "../../../FirebaseConfig";
+import {
+  getAuth,
+  sendSignInLinkToEmail,
+  signInWithEmailAndPassword,
+  signInWithEmailLink,
+  signInWithPopup,
+  GoogleAuthProvider
+} from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
-const Login = ({ navigation }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// const provider = new GoogleAuthProvider();
+
+const Login = ({ navigation, promptAsync }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [loginError, setLoginError] = useState("");
   const {
     control,
@@ -36,48 +46,96 @@ const Login = ({ navigation }) => {
       password: ""
     }
   });
+  const auth = FIREBASE_AUTH;
+  // console.log(auth.currentUser.getIdToken());
 
-  const HandleGetStore = async () => {
+  const generateToken = async () => {
     try {
-      const respon = await AsyncStorage.getItem("mykey");
-      console.log(respon);
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        console.log(auth);
+        return token;
+      } else {
+        console.log("No user is currently signed in.");
+      }
+    } catch (error) {
+      console.error("Error generating token:", error);
+    }
+  };
+
+  const storeUser = async (user) => {
+    try {
+      const response = await AsyncStorage.setItem(
+        "user",
+        JSON.stringify({
+          ...user,
+          token: generateToken()
+        })
+      );
     } catch (error) {
       console.log(error);
     }
   };
-  const auth = FIREBASE_AUTH;
+
+  // useEffect(() => {
+  //   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+  //   provider.setCustomParameters({
+  //     login_hint: "user@example.com"
+  //   });
+  // }, []);
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     const result = await signInWithPopup(provider);
+  //     const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     const token = credential.accessToken;
+  //     const user = result.user;
+  //     console.log("Successfully signed in with Google:", user);
+  //   } catch (error) {
+  //     console.error("Error signing in with Google:", error);
+  //   }
+  // };
 
   const onSubmit = async (data) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      await signInWithEmailAndPassword(getAuth(), data.email, data.password);
+      setIsLoggedIn(true);
       reset({
         email: "",
         password: ""
       });
-      setIsLoggedIn(true);
-      console.log("logged in successfully");
+      const user = FIREBASE_AUTH.currentUser;
+      storeUser(user);
+      navigation.navigate("BottomNavigation");
+
+      console.log("logged in successfully", isLoggedIn);
     } catch (error) {
+      setIsLoggedIn(false);
+      console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
       if (error.code === "auth/too-many-requests") {
         setLoginError(
           "Too many request, Please reset Password or Try again later"
         );
-        console.log(error.code, isLoggedIn);
+        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
       } else if (error.code === "auth/invalid-credential") {
         setLoginError("Invalid credentials");
-        console.log(error.code, isLoggedIn);
+        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
       } else {
-        console.log(error);
+        console.log(isLoggedIn !== null || loginError);
       }
     }
-    showMessage({
-      message: !isLoggedIn ? loginError : "Logged in successfully",
-      type: !isLoggedIn ? "danger" : "success"
-    });
+    {
+      (isLoggedIn !== null || loginError) &&
+        showMessage({
+          message: !isLoggedIn ? loginError : "Logged in successfully",
+          type: !isLoggedIn ? "danger" : "success"
+        });
+    }
   };
 
   return (
     <SafeAreaView
-      className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
+      className={`flex-1  bg-gray-300 dark:bg-bgDarkPrimary  px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
       <FlashMessage
         duration={3000}
@@ -89,16 +147,19 @@ const Login = ({ navigation }) => {
         }
         textStyle={{ textAlign: "center" }}
       />
+
       <KeyboardAvoidingView behavior="position" className={`flex-1`}>
         <View className={`justify-between h-full `}>
           <View className="flex-row gap-5 items-center">
             <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
               <AntDesign name="arrowleft" color="#FDD031" size={30} />
             </TouchableOpacity>
-            <Text className="text-white font-bold text-2xl">Login</Text>
+            <Text className="text-black dark:text-white font-bold text-2xl">
+              Login
+            </Text>
           </View>
           <Logo style="text-3xl" />
-          <Text className="text-white text-lg text-center ">
+          <Text className="text-black dark:text-white text-lg text-center ">
             Please Login to enjoy more benefits and we won't let You go.
           </Text>
           <View className="gap-4">
@@ -148,7 +209,10 @@ const Login = ({ navigation }) => {
                   </Text>
                 )}
 
-                <TouchableOpacity className="self-end pt-3">
+                <TouchableOpacity
+                  className="self-end pt-3"
+                  onPress={() => navigation.navigate("ResetPassword")}
+                >
                   <Text className="text-yellowPrimary">Forgot Password?</Text>
                 </TouchableOpacity>
               </View>
@@ -159,12 +223,12 @@ const Login = ({ navigation }) => {
               />
             </View>
             <View className="">
-              <Text className="text-white text-[10px] text-center mb-3">
+              <Text className="text-black dark:text-white text-[10px] text-center mb-3">
                 or simply login with
               </Text>
               <View className="mb-3">
                 <Button
-                  onPress={HandleGetStore}
+                  onPress={() => promptAsync()}
                   bgColor="ebonyBlack"
                   text="Login with Apple"
                   icon={<AntDesign name="apple1" color="white" size={20} />}
@@ -172,7 +236,7 @@ const Login = ({ navigation }) => {
               </View>
               <View className="mb-3">
                 <Button
-                  // onPress={HandleStore}
+                  onPress={() => promptAsync()}
                   bgColor="white"
                   text="Login with Google"
                   icon={
@@ -189,7 +253,7 @@ const Login = ({ navigation }) => {
             </View>
           </View>
           <View className="flex-row justify-center items-center">
-            <Text className="text-white text-xs text-center ">
+            <Text className="text-black dark:text-white text-xs text-center ">
               Don't have an account?{" "}
             </Text>
             <TouchableOpacity

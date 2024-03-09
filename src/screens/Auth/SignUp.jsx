@@ -39,7 +39,7 @@ const SignUp = ({ navigation }) => {
 
   const onSubmit = async (data) => {
     try {
-      await createUserWithEmailAndPassword(auth,data.email, data.password);
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
       reset({
         email: "",
         password: "",
@@ -51,7 +51,7 @@ const SignUp = ({ navigation }) => {
   };
   return (
     <SafeAreaView
-      className={`flex-1 bg-bgDarkPrimary px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
+      className={`flex-1  bg-gray-300 dark:bg-bgDarkPrimary  px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
       <KeyboardAvoidingView behavior="height" className={`flex-1`}>
         <View className={`justify-between h-full `}>
@@ -59,10 +59,12 @@ const SignUp = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <AntDesign name="arrowleft" color="#FDD031" size={30} />
             </TouchableOpacity>
-            <Text className="text-white font-bold text-2xl">Register</Text>
+            <Text className="text-black dark:text-white font-bold text-2xl">
+              Register
+            </Text>
           </View>
           <Logo style="text-3xl" />
-          <Text className="text-white text-lg text-center ">
+          <Text className="text-black dark:text-white text-lg text-center ">
             Sign up to discover all our movies and enjoy our features.
           </Text>
           <View className="gap-y-3">
@@ -137,14 +139,14 @@ const SignUp = ({ navigation }) => {
               text="Sign Up"
               onPress={handleSubmit(onSubmit)}
             />
-            <Text className="text-white text-xs text-center">
+            <Text className="text-black dark:text-white text-xs text-center">
               By signing up I accept{" "}
               <Text className="text-yellowPrimary">terms of use</Text> and{" "}
               <Text className="text-yellowPrimary">privacy policy</Text>
             </Text>
           </View>
           <View className="">
-            <Text className="text-white text-[10px] mb-3 text-center">
+            <Text className="text-black dark:text-white text-[10px] mb-3 text-center">
               or simply sign up with
             </Text>
             <View className="mb-3">
@@ -171,7 +173,7 @@ const SignUp = ({ navigation }) => {
             </View>
           </View>
           <View className="flex-row justify-center items-center">
-            <Text className="text-white text-xs text-center ">
+            <Text className="text-black dark:text-white text-xs text-center ">
               Already have an account?{" "}
             </Text>
             <TouchableOpacity

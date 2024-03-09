@@ -7,6 +7,9 @@ import { File } from "../screens/File";
 import ViewMoreMovies from "../screens/movies/ViewMoreMovies";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SingleMovieOverview from "../screens/movies/SingleMovieOverview";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import DrawerNavigation from "./DrawerNavigation";
+import TabNavigation from "./TabNavigation";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -18,7 +21,7 @@ const MoviesOverviewStack = () => {
         headerShown: false
       }}
     >
-      <Stack.Screen name="MoviesOverview" component={MoviesOverview} />
+      <Stack.Screen name="TabNavigation" component={TabNavigation} />
       <Stack.Screen name="ViewMoreMovies" component={ViewMoreMovies} />
       <Stack.Screen
         name="SingleMovieOverview"
@@ -47,7 +50,7 @@ const SearchStack = () => {
 const BottomNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="MoviesOverview"
+      initialRouteName="TabNavigation"
       screenOptions={{
         headerShown: false,
         tabBarStyle: { backgroundColor: "#1F2123", borderTopWidth: 0 }
@@ -87,8 +90,8 @@ const BottomNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="DrawerNavigation"
+        component={DrawerNavigation}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="appstore-o" size={size} color={color} />
