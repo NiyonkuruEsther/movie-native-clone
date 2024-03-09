@@ -57,13 +57,13 @@ const Search = () => {
           <AntDesign
             name="search1"
             size={25}
-            color={"#FDD031"}
+            color={colorScheme === "dark" ? "#FDD031" : "#FFB300"}
             onPress={getSearchResults}
           />
         </View>
       </View>
       <ScrollView className="flex-1 px-5">
-        <Text className="text-black dark:text-white text-xl mb-5">
+        <Text className="text-black dark:text-white text-xl mb-5 z">
           {searchKeyword ? "Search Results" : "Popular Movies"}
         </Text>
         <FlatList

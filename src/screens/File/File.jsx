@@ -60,14 +60,14 @@ const File = ({ navigation }) => {
               className={`
           ${
             activeIndex === index &&
-            "dark:text-yellowPrimary text-amber-600  border-b-2 pb-2 border-amber-600 dark:border-yellowPrimary"
+            "text-gray-700  dark:text-yellowPrimary font-bold dark:font-normal border-b-2 pb-2 border-gray-700 dark:border-yellowPrimary"
           } pt-4`}
               underlayColor={"white"}
             >
               <Text
                 className={` ${
                   activeIndex === index
-                    ? "dark:text-yellowPrimary text-amber-600  "
+                    ? "text-gray-700  dark:text-yellowPrimary font-bold dark:font-normal"
                     : "text-black dark:text-white "
                 } text-base`}
               >

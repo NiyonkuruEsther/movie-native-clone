@@ -16,17 +16,29 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.movienativeclone"
+      "bundleIdentifier": "com.anonymous.movienativeclone",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.movienativeclone"
+      "package": "com.anonymous.movienativeclone",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7abc8ab1-ae3a-4452-8b39-c87541f389a9"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/7abc8ab1-ae3a-4452-8b39-c87541f389a9"
     }
   }
 }

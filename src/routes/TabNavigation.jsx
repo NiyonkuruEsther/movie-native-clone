@@ -104,8 +104,10 @@ const TabNavigation = ({ navigation }) => {
               key={index}
               name={screenName}
               options={{
-                tabBarItemStyle: "black",
-
+                // tabBarItemStyle: "black",
+                tabBarIndicatorContainerStyle: {
+                  backgroundColor: colorScheme === "dark" ? "#1F2123" : "white"
+                },
                 tabBarLabelStyle: {
                   fontWeight: colorScheme === "dark" ? "400" : "700"
                 }

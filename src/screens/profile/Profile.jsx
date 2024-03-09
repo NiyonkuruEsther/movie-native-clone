@@ -7,11 +7,11 @@ import { useDarkMode } from "../../context/DarkMode";
 import { useColorScheme } from "nativewind";
 
 const Profile = () => {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
 
   const { isDarkMode, toggleDarkMode, colors } = useDarkMode();
-  const { colorScheme, toggleColorScheme } = useColorScheme();
 
   useEffect(() => {
     toggleDarkMode();
@@ -46,19 +46,29 @@ const Profile = () => {
         </View>
         <TouchableOpacity className="gap-x-2 flex-row items-center">
           <Feather name="edit-2" color="#FDD031" />
-          <Text className="dark:text-yellowPrimary text-amber-600  ">Edit</Text>
+          <Text className="text-gray-700 dark:text-yellowPrimary font-bold dark:font-normal">
+            Edit
+          </Text>
         </TouchableOpacity>
       </View>
       {/* Menu */}
       <View className=" bg-gray-300 dark:bg-bgDarkPrimary  p-5 flex-1 justify-evenly">
         <View className="flex-row gap-x-3">
-          <Feather name="inbox" color="white" size={25} />
+          <Feather
+            name="inbox"
+            color={colorScheme === "dark" ? "white" : "black"}
+            size={25}
+          />
           <Text className="text-black dark:text-white  text-lg opacity-95">
             Inbox{" "}
           </Text>
         </View>
         <View className="flex-row gap-x-3">
-          <Feather name="user" color="white" size={25} />
+          <Feather
+            name="user"
+            color={colorScheme === "dark" ? "white" : "black"}
+            size={25}
+          />
           <Pressable onPress={() => auth.signOut()}>
             <Text className="text-black dark:text-white  text-lg opacity-95">
               Logout
@@ -69,19 +79,31 @@ const Profile = () => {
           onPress={() => console.log(user)}
           className="flex-row gap-x-3"
         >
-          <Feather name="settings" color="white" size={25} />
+          <Feather
+            name="settings"
+            color={colorScheme === "dark" ? "white" : "black"}
+            size={25}
+          />
           <Text className="text-black dark:text-white  text-lg opacity-95">
             App Settings
           </Text>
         </Pressable>
         <View className="flex-row gap-x-3">
-          <Feather name="globe" color="white" size={25} />
+          <Feather
+            name="globe"
+            color={colorScheme === "dark" ? "white" : "black"}
+            size={25}
+          />
           <Text className="text-black dark:text-white  text-lg opacity-95">
             Language
           </Text>
         </View>
         <View className="flex-row gap-x-3">
-          <Feather name="info" color="white" size={25} />
+          <Feather
+            name="info"
+            color={colorScheme === "dark" ? "white" : "black"}
+            size={25}
+          />
           <Text className="text-black dark:text-white  text-lg opacity-95">
             Help, FAQ
           </Text>

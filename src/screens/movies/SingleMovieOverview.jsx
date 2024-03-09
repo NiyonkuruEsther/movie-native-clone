@@ -94,14 +94,14 @@ const SingleMovieOverview = ({ route, navigation }) => {
               className={`
             ${
               activeIndex === index &&
-              "dark:text-yellowPrimary text-amber-600  border-b-2 pb-2 border-yellowPrimary"
+              "dark:text-yellowPrimary text-gray-700 font-bold dark:font-normal    border-b-2 pb-2 border-yellowPrimary"
             } pt-4`}
               underlayColor={"white"}
             >
               <Text
                 className={` ${
                   activeIndex === index
-                    ? "dark:text-yellowPrimary text-amber-600  "
+                    ? "dark:text-yellowPrimary text-gray-700 font-bold dark:font-normal    "
                     : "text-black dark:text-white "
                 } text-base`}
               >

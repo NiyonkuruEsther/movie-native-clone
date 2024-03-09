@@ -10,11 +10,16 @@ import SingleMovieOverview from "../screens/movies/SingleMovieOverview";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import DrawerNavigation from "./DrawerNavigation";
 import TabNavigation from "./TabNavigation";
+import { useColorScheme } from "nativewind";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+let colorSchemeGlobal;
+
 const MoviesOverviewStack = () => {
+  const { colorScheme } = useColorScheme();
+  colorSchemeGlobal = colorScheme;
   return (
     <Stack.Navigator
       screenOptions={{
@@ -53,11 +58,14 @@ const BottomNavigation = () => {
       initialRouteName="TabNavigation"
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#1F2123", borderTopWidth: 0 }
+        tabBarStyle: {
+          backgroundColor: colorSchemeGlobal === "dark" ? "#1F2123" : "#FFB300",
+          borderTopWidth: 0
+        }
       }}
       tabBarOptions={{
         showLabel: false,
-        activeTintColor: "#FDD031",
+        activeTintColor: colorSchemeGlobal === "dark" ? "#FDD031" : "black",
         inactiveTintColor: "white"
       }}
     >
