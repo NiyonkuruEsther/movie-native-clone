@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { getGenre, getMovies } from "../fetch";
 import { SearchCard } from "../components/movies";
+import { useColorScheme } from "nativewind";
 const Search = () => {
   const [movies, setMovies] = useState({ movies: [] });
   const [genreList, setGenreList] = useState([]);
   const [searchKeyword, setSearchkeyword] = useState("");
   const [searchResults, setResearchResults] = useState({ movies: [] });
+  const { colorScheme } = useColorScheme();
   useEffect(() => {
     getMovies(
       "https://api.themoviedb.org/3/movie/popular?language=en-US",
@@ -40,12 +42,12 @@ const Search = () => {
     <View className=" bg-gray-300 dark:bg-bgDarkPrimary  flex-1">
       <View className="bg-white dark:bg-bgDarkSecondary pt-16 gap-y-4 mb-5">
         <Text className="text-3xl text-black dark:text-white px-5">Search</Text>
-        <View className="flex-row justify-between px-5 h-14 bg-[#2C2D31] items-center gap-x-3">
+        <View className="flex-row justify-between px-5 h-14 bg-gray-200 dark:bg-[#2C2D31] items-center gap-x-3">
           <TextInput
             className="flex-1 h-full text-black dark:text-white "
             placeholder="Type title, category, years, etc..."
             placeholderTextColor={"gray"}
-            selectionColor={"white"}
+            selectionColor={colorScheme === "dark" ? "white" : "black"}
             onChangeText={(text) => {
               setSearchkeyword(text);
               getSearchResults();

@@ -90,11 +90,7 @@ const TabNavigation = ({ navigation }) => {
         overScrollMode="always"
         screenOptions={{
           tabBarActiveTintColor: colorScheme === "dark" ? "#FDD031" : "#FFC000",
-          tabBarInactiveTintColor: "#cccccc",
-          tabBarStyle: {
-            backgroundColor: colorScheme === "dark" ? "#1F2123" : "white"
-          },
-          tabBarLabelStyle: { color: "#cccccc", fontWeight: "700" },
+          tabBarInactiveTintColor: colorScheme === "dark" ? "#cccccc" : "black",
           tabBarIndicatorStyle: { backgroundColor: "#FDD031" },
           tabBarBounces: true
         }}
@@ -109,7 +105,10 @@ const TabNavigation = ({ navigation }) => {
               name={screenName}
               options={{
                 tabBarItemStyle: "black",
-                tabBarLabelStyle: "white"
+
+                tabBarLabelStyle: {
+                  fontWeight: colorScheme === "dark" ? "400" : "700"
+                }
               }}
               component={MoviesOverview}
             />

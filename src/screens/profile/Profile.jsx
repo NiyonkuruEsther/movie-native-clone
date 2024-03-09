@@ -46,7 +46,7 @@ const Profile = () => {
         </View>
         <TouchableOpacity className="gap-x-2 flex-row items-center">
           <Feather name="edit-2" color="#FDD031" />
-          <Text className="text-yellowPrimary ">Edit</Text>
+          <Text className="dark:text-yellowPrimary text-amber-600  ">Edit</Text>
         </TouchableOpacity>
       </View>
       {/* Menu */}

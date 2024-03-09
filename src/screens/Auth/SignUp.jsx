@@ -141,8 +141,13 @@ const SignUp = ({ navigation }) => {
             />
             <Text className="text-black dark:text-white text-xs text-center">
               By signing up I accept{" "}
-              <Text className="text-yellowPrimary">terms of use</Text> and{" "}
-              <Text className="text-yellowPrimary">privacy policy</Text>
+              <Text className="dark:text-yellowPrimary text-amber-600 ">
+                terms of use
+              </Text>{" "}
+              and{" "}
+              <Text className="dark:text-yellowPrimary text-amber-600 ">
+                privacy policy
+              </Text>
             </Text>
           </View>
           <View className="">
@@ -180,7 +185,9 @@ const SignUp = ({ navigation }) => {
               onPress={() => navigation.navigate("Login")}
               className="p-0"
             >
-              <Text className="text-yellowPrimary">Sign In</Text>
+              <Text className="dark:text-yellowPrimary text-amber-600 ">
+                Sign In
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

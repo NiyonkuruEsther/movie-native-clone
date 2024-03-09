@@ -213,7 +213,9 @@ const Login = ({ navigation, promptAsync }) => {
                   className="self-end pt-3"
                   onPress={() => navigation.navigate("ResetPassword")}
                 >
-                  <Text className="text-yellowPrimary">Forgot Password?</Text>
+                  <Text className="dark:text-yellowPrimary text-amber-600 ">
+                    Forgot Password?
+                  </Text>
                 </TouchableOpacity>
               </View>
               <Button
@@ -260,7 +262,9 @@ const Login = ({ navigation, promptAsync }) => {
               onPress={() => navigation.push("SignUp")}
               className="p-0"
             >
-              <Text className="text-yellowPrimary">Sign Up</Text>
+              <Text className="dark:text-yellowPrimary text-amber-600 ">
+                Sign Up
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

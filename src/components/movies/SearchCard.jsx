@@ -30,12 +30,15 @@ const SearchCard = ({ item, genres }) => {
         >
           {item.original_title}
         </Text>
-        <Text className="font-medium text-lg text-grayPrimary">
+        <Text className="font-medium text-lg text-gray-700 dark:text-grayPrimary">
           {item.release_date}
         </Text>
         <View className="flex-row flex-wrap gap-y-2">
           {genres.map((item) => (
-            <Text className=" text-grayPrimary"> {item}</Text>
+            <Text className=" text-gray-700 dark:text-grayPrimary">
+              {" "}
+              {item}
+            </Text>
           ))}
         </View>
       </View>

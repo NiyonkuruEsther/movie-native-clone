@@ -28,7 +28,9 @@ const MoviesOverviewlist = ({
               })
             }
           >
-            <Text className="text-gray-400">{viewMore && "View More"}</Text>
+            <Text className="text-gray-700 dark:text-gray-400">
+              {viewMore && "View More"}
+            </Text>
           </TouchableOpacity>
         </View>
       )}

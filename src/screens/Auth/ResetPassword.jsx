@@ -174,7 +174,7 @@ const ResetPassword = ({ navigation }) => {
               onPress={() => navigation.push("SignUp")}
               className="p-0"
             >
-              <Text className="text-yellowPrimary">Sign Up</Text>
+              <Text className="dark:text-yellowPrimary text-amber-600 ">Sign Up</Text>
             </TouchableOpacity>
           </View> */}
         </View>
