@@ -19,7 +19,7 @@ const Profile = () => {
   }, [colorScheme]);
 
   return (
-    <View className="bg-bgGrayLighter flex-1">
+    <View className="bg-gray-300 dark:bg-bgGrayLighter flex-1">
       <View className="bg-white dark:bg-bgDarkSecondary pt-16 gap-y-4 mb-5 flex-row justify-between px-5">
         <Text className="text-black dark:text-white text-xl mb-5 ">More</Text>
         <Entypo

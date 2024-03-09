@@ -41,7 +41,9 @@ const File = ({ navigation }) => {
   // }, []);
 
   return (
-    <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
+    <SafeAreaView
+      className={` bg-white dark:bg-[#1F2123]  relative h-[${heightFull}px]`}
+    >
       <View className="pl-5 pt-4">
         <TouchableOpacity
           onPress={() => navigation.navigate("MoviesOverview")}

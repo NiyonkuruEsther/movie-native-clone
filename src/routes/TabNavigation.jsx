@@ -1,6 +1,5 @@
 // App.js
-import React, { useContext, useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Modal, Pressable, SafeAreaView, Text } from "react-native";
 import { NavigationContext } from "../context/Navigation";
@@ -11,11 +10,13 @@ import { TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { Logo } from "../components/Layout";
 import Feather from "react-native-vector-icons/Feather";
-import { ScrollView } from "react-native";
+import { useColorScheme } from "nativewind";
 
 const TabTabs = createMaterialTopTabNavigator();
 
-const TabNavigation = () => {
+const TabNavigation = ({ navigation }) => {
+  const { colorScheme } = useColorScheme();
+
   const { navData } = useContext(NavigationContext);
   const [showModal, setShowModal] = useState(false);
   const navItems = [];
@@ -24,7 +25,9 @@ const TabNavigation = () => {
     navData && navData.map((item) => navItems.push(item.name));
 
   return (
-    <SafeAreaView className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
+    <SafeAreaView
+      className={` bg-white dark:bg-[#1F2123] relative h-[${heightFull}px]`}
+    >
       <View className="pl-5 pt-4">
         <View className="flex-row justify-between items-center">
           <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
@@ -34,8 +37,7 @@ const TabNavigation = () => {
             <FontAwesome
               name="bookmark-o"
               size={25}
-              color="white"
-              onPress={() => setShowModal(true)}
+              color={colorScheme === "dark" ? "white" : "black"}
             />
             <Modal
               animationType="slide"
@@ -52,11 +54,18 @@ const TabNavigation = () => {
                   <Text className="text-black dark:text-white text-lg ">
                     Notifications
                   </Text>
-                  <Pressable onPress={() => setShowModal(false)}>
-                    <Text style={{ color: "white" }}>
-                      <FontAwesome name="close" size={20} />
-                    </Text>
-                  </Pressable>
+                  <Text
+                    style={{
+                      color: `${colorScheme === "dark" ? "black" : "white"}`
+                    }}
+                  >
+                    <FontAwesome
+                      name="close"
+                      size={20}
+                      color={colorScheme === "dark" ? "white" : "black"}
+                      onPress={() => setShowModal(false)}
+                    />
+                  </Text>
                 </View>
 
                 <Text className="px-5 text-black dark:text-white ">
@@ -67,18 +76,25 @@ const TabNavigation = () => {
                 </Text>
               </SafeAreaView>
             </Modal>
-            <Feather name="bell" size={25} color="white" />
+            <Feather
+              name="bell"
+              size={25}
+              color={colorScheme === "dark" ? "white" : "black"}
+              onPress={() => setShowModal(true)}
+            />
           </View>
         </View>
-        {/* <TabNavigation navData={navData}/> */}
+        {/* <TabNavigation navData={navData}/> "#1F2123" */}
       </View>
       <TabTabs.Navigator
         overScrollMode="always"
         screenOptions={{
-          tabBarActiveTintColor: "#FDD031",
+          tabBarActiveTintColor: colorScheme === "dark" ? "#FDD031" : "#FFC000",
           tabBarInactiveTintColor: "#cccccc",
-          tabBarStyle: { backgroundColor: "#1F2123" },
-          tabBarLabelStyle: { color: "#cccccc" },
+          tabBarStyle: {
+            backgroundColor: colorScheme === "dark" ? "#1F2123" : "white"
+          },
+          tabBarLabelStyle: { color: "#cccccc", fontWeight: "700" },
           tabBarIndicatorStyle: { backgroundColor: "#FDD031" },
           tabBarBounces: true
         }}
@@ -87,15 +103,17 @@ const TabNavigation = () => {
         }}
       >
         {navItems &&
-          navItems
-            .slice(3)
-            .map((screenName, index) => (
-              <TabTabs.Screen
-                key={index}
-                name={screenName}
-                component={MoviesOverview}
-              />
-            ))}
+          navItems.slice(3).map((screenName, index) => (
+            <TabTabs.Screen
+              key={index}
+              name={screenName}
+              options={{
+                tabBarItemStyle: "black",
+                tabBarLabelStyle: "white"
+              }}
+              component={MoviesOverview}
+            />
+          ))}
       </TabTabs.Navigator>
     </SafeAreaView>
   );

@@ -58,7 +58,7 @@ const Home = ({ isLoading }) => {
       className="h-[812px]"
     >
       <TouchableOpacity
-        className="bg-[#1F2123] flex-1 justify-end"
+        className="bg-white dark:bg-[#1F2123]  flex-1 justify-end"
         style={{ opacity: 0.7 }}
       >
         <TouchableOpacity className=" h-[60%] justify-between pb-10">

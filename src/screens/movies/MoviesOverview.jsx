@@ -75,7 +75,9 @@ const MoviesOverview = ({ navigation }) => {
   }, []);
 
   return (
-    <View className={` bg-[#1F2123] relative h-[${heightFull}px]`}>
+    <View
+      className={`bg-white dark:bg-[#1F2123]  relative h-[${heightFull}px]`}
+    >
       <ScrollView
         className="flex-1"
         style={{ height: heightFull }}
