@@ -3,7 +3,8 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  FlatList
+  FlatList,
+  Linking
 } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Octicons from "react-native-vector-icons/Octicons";
@@ -151,6 +152,16 @@ const SingleMovieOverview = ({ route, navigation }) => {
               // onResponderEnd={() => setIsVideoLoaded(true)}
               allowsFullscreenVideo={true}
               javaScriptEnabled={true}
+            />
+            <Octicons
+              name="share-android"
+              color="white"
+              style={{ paddingTop: 20 }}
+              onPress={() =>
+                Linking.openURL(
+                  `whatsapp://send?text=Check out this link ${`https://www.youtube.com/embed/${video.movies[0].key}?rel=0&autoplay=0&showinfo=0&controls=0`}`
+                )
+              }
             />
           </View>
         ) : (

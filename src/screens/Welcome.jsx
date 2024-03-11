@@ -33,7 +33,6 @@ const Welcome = ({ navigation }) => {
               className="w-[200px] h-[200px] "
             />
           </View>
-
           <View className="gap-y-3 px-5 ">
             <Text className="text-black dark:text-white font-bold text-3xl text-center">
               Welcome to Muvi
@@ -54,9 +53,11 @@ const Welcome = ({ navigation }) => {
             )
           }
         />
-        {/* <TouchableOpacity onPress={() => navigation.push("Login")}>
-          <Text className="text-black dark:text-white text-center">Sign In</Text>
-        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => navigation.push("Login")}>
+          <Text className="text-black dark:text-white text-center">
+            Sign In
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

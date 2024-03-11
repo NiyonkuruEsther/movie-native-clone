@@ -6,7 +6,7 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { useDarkMode } from "../../context/DarkMode";
 import { useColorScheme } from "nativewind";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
@@ -69,7 +69,12 @@ const Profile = () => {
             color={colorScheme === "dark" ? "white" : "black"}
             size={25}
           />
-          <Pressable onPress={() => auth.signOut()}>
+          <Pressable
+            onPress={() => {
+              auth.signOut();
+              navigation.navigate("Welcome");
+            }}
+          >
             <Text className="text-black dark:text-white  text-lg opacity-95">
               Logout
             </Text>
