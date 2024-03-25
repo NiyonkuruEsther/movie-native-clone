@@ -18,19 +18,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { FIREBASE_APP, FIREBASE_AUTH } from "../../../FirebaseConfig";
-import {
-  getAuth,
-  sendSignInLinkToEmail,
-  signInWithEmailLink,
-  signInWithPopup,
-  GoogleAuthProvider
-} from "firebase/auth";
+
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 import { Auth } from "../../context/Auth";
-
-// const provider = new GoogleAuthProvider();
 
 const Login = ({ navigation, promptAsync }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -49,7 +40,6 @@ const Login = ({ navigation, promptAsync }) => {
       password: ""
     }
   });
-  const auth = FIREBASE_AUTH;
 
   const onSubmit = async (data) => {
     login(data, reset);

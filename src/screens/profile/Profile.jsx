@@ -10,6 +10,7 @@ const Profile = ({ navigation }) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
+  const { signup } = useContext(Auth);
 
   const { isDarkMode, toggleDarkMode, colors } = useDarkMode();
 
@@ -71,7 +72,7 @@ const Profile = ({ navigation }) => {
           />
           <Pressable
             onPress={() => {
-              auth.signOut();
+              logout();
               navigation.navigate("Welcome");
             }}
           >

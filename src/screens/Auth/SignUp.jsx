@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "../../components";
@@ -16,10 +16,11 @@ import InputLabel from "../../components/form/InputLabel";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "../../schema";
-import { FIREBASE_AUTH } from "../../../FirebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Auth } from "../../context/Auth";
 
 const SignUp = ({ navigation }) => {
+  const { signup } = useContext(Auth);
+
   const {
     control,
     handleSubmit,
@@ -35,19 +36,8 @@ const SignUp = ({ navigation }) => {
     }
   });
 
-  const auth = FIREBASE_AUTH;
-
   const onSubmit = async (data) => {
-    try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      reset({
-        email: "",
-        password: "",
-        confirm_password: ""
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await signup(data, reset);
   };
   return (
     <SafeAreaView

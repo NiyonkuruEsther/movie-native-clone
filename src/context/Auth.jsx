@@ -1,5 +1,9 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword
+} from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -91,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (data) => {
+  const signup = async (data, reset) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       reset({
