@@ -9,6 +9,7 @@ import BottomNavigation from "./BottomNavigation";
 import { getAuth } from "firebase/auth";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
+import { AuthProvider } from "../context/Auth";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,22 +45,24 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
-      >
-        <Stack.Screen name="Home">
-          {(props) => <Home {...props} isLoading={isLoading} />}
-        </Stack.Screen>
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Login">
-          {(props) => <Login {...props} promptAsync={promptAsync} />}
-        </Stack.Screen>
-        <Stack.Screen name="ResetPassword" component={ResetPassword} />
-        <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
-      </Stack.Navigator>
-      <StatusBar style="light" />
+      <AuthProvider>
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="Home"
+        >
+          <Stack.Screen name="Home">
+            {(props) => <Home {...props} isLoading={isLoading} />}
+          </Stack.Screen>
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Login">
+            {(props) => <Login {...props} promptAsync={promptAsync} />}
+          </Stack.Screen>
+          <Stack.Screen name="ResetPassword" component={ResetPassword} />
+          <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
+        </Stack.Navigator>
+        <StatusBar style="light" />
+      </AuthProvider>
     </NavigationContainer>
   );
 };

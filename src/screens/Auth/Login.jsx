@@ -4,9 +4,10 @@ import {
   KeyboardAvoidingView,
   Image,
   TouchableOpacity,
-  Linking
+  Linking,
+  Keyboard
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Logo } from "../../components/Layout";
@@ -21,19 +22,21 @@ import { FIREBASE_APP, FIREBASE_AUTH } from "../../../FirebaseConfig";
 import {
   getAuth,
   sendSignInLinkToEmail,
-  signInWithEmailAndPassword,
   signInWithEmailLink,
   signInWithPopup,
   GoogleAuthProvider
 } from "firebase/auth";
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
+import { Auth } from "../../context/Auth";
 
 // const provider = new GoogleAuthProvider();
 
 const Login = ({ navigation, promptAsync }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [loginError, setLoginError] = useState("");
+  const { login, isLoading } = useContext(Auth);
+
   const {
     control,
     handleSubmit,
@@ -47,90 +50,9 @@ const Login = ({ navigation, promptAsync }) => {
     }
   });
   const auth = FIREBASE_AUTH;
-  // console.log(auth.currentUser.getIdToken());
-
-  const generateToken = async () => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const token = await user.getIdToken();
-        console.log(auth);
-        return token;
-      } else {
-        console.log("No user is currently signed in.");
-      }
-    } catch (error) {
-      console.error("Error generating token:", error);
-    }
-  };
-
-  const storeUser = async (user) => {
-    try {
-      const response = await AsyncStorage.setItem(
-        "user",
-        JSON.stringify({
-          ...user,
-          token: generateToken()
-        })
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // useEffect(() => {
-  //   provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-  //   provider.setCustomParameters({
-  //     login_hint: "user@example.com"
-  //   });
-  // }, []);
-  // const signInWithGoogle = async () => {
-  //   try {
-  //     const result = await signInWithPopup(provider);
-  //     const credential = GoogleAuthProvider.credentialFromResult(result);
-  //     const token = credential.accessToken;
-  //     const user = result.user;
-  //     console.log("Successfully signed in with Google:", user);
-  //   } catch (error) {
-  //     console.error("Error signing in with Google:", error);
-  //   }
-  // };
 
   const onSubmit = async (data) => {
-    try {
-      await signInWithEmailAndPassword(getAuth(), data.email, data.password);
-      setIsLoggedIn(true);
-      reset({
-        email: "",
-        password: ""
-      });
-      const user = FIREBASE_AUTH.currentUser;
-      storeUser(user);
-      navigation.navigate("BottomNavigation");
-
-      console.log("logged in successfully", isLoggedIn);
-    } catch (error) {
-      setIsLoggedIn(false);
-      console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
-      if (error.code === "auth/too-many-requests") {
-        setLoginError(
-          "Too many request, Please reset Password or Try again later"
-        );
-        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
-      } else if (error.code === "auth/invalid-credential") {
-        setLoginError("Invalid credentials");
-        console.log(error.code, isLoggedIn, isLoggedIn !== null || loginError);
-      } else {
-        console.log(isLoggedIn !== null || loginError);
-      }
-    }
-    {
-      (isLoggedIn !== null || loginError) &&
-        showMessage({
-          message: !isLoggedIn ? loginError : "Logged in successfully",
-          type: !isLoggedIn ? "danger" : "success"
-        });
-    }
+    login(data, reset);
   };
 
   return (
