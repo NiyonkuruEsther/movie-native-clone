@@ -11,6 +11,7 @@ import { Data } from "../data";
 import { useNavigation } from "@react-navigation/core";
 import Carousel from "react-native-snap-carousel";
 import { getMovies } from "../fetch";
+import SplashScreen from "./SplashScreen";
 
 export const heightFull = Dimensions.get("window").height;
 export const widthFull = Dimensions.get("window").width;
@@ -105,13 +106,7 @@ const Home = ({ isLoading }) => {
     </ImageBackground>
   ) : (
     // loader
-    <TouchableOpacity className="px-4 h-[812px]  bg-gray-300 dark:bg-bgDarkPrimary  overflow-hidden">
-      <TouchableOpacity
-        className={`h-[${heightFull}px] flex-1 justify-center items-center overflow-hidden`}
-      >
-        <Logo />
-      </TouchableOpacity>
-    </TouchableOpacity>
+    <SplashScreen />
   );
 };
 
