@@ -3,11 +3,9 @@ import {
   Text,
   KeyboardAvoidingView,
   Image,
-  TouchableOpacity,
-  Linking,
-  Keyboard
+  TouchableOpacity
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Logo } from "../../components/Layout";
@@ -17,16 +15,12 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../schema";
 import { heightFull } from "../Home";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import FlashMessage from "react-native-flash-message";
-import { showMessage } from "react-native-flash-message";
 import { Auth } from "../../context/Auth";
 
 const Login = ({ navigation, promptAsync }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [loginError, setLoginError] = useState("");
-  const { login, isLoading } = useContext(Auth);
+  const { login, isLoggedIn, loginError } = useContext(Auth);
 
   const {
     control,
@@ -42,7 +36,7 @@ const Login = ({ navigation, promptAsync }) => {
   });
 
   const onSubmit = async (data) => {
-    login(data, reset);
+    await login(data, reset);
   };
 
   return (

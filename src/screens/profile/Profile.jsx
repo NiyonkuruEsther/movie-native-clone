@@ -5,12 +5,13 @@ import { FIREBASE_AUTH } from "../../../FirebaseConfig";
 import Entypo from "react-native-vector-icons/Entypo";
 import { useDarkMode } from "../../context/DarkMode";
 import { useColorScheme } from "nativewind";
+import { Auth } from "../../context/Auth";
 
 const Profile = ({ navigation }) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const auth = FIREBASE_AUTH;
   const user = auth.currentUser;
-  const { signup } = useContext(Auth);
+  const { logout } = useContext(Auth);
 
   const { isDarkMode, toggleDarkMode, colors } = useDarkMode();
 
@@ -61,7 +62,7 @@ const Profile = ({ navigation }) => {
             size={25}
           />
           <Text className="text-black dark:text-white  text-lg opacity-95">
-            Inbox{" "}
+            Inbox
           </Text>
         </View>
         <View className="flex-row gap-x-3">

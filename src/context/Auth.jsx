@@ -7,6 +7,7 @@ import {
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { showMessage } from "react-native-flash-message";
 
 export const Auth = createContext();
 
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [loginError, setLoginError] = useState("");
+  const [signupError, setSignupError] = useState();
 
   useEffect(() => {
     const unsubscribe = () => {
@@ -104,13 +106,18 @@ export const AuthProvider = ({ children }) => {
         confirm_password: ""
       });
     } catch (error) {
-      console.log(error);
+      setSignupError(error.code);
+      showMessage({
+        message: error.code,
+        type: "danger"
+      });
+      console.log(error.code);
     }
   };
 
   const logout = async () => {
     try {
-      await auth().signOut();
+      await auth.signOut();
     } catch (error) {
       console.error(error);
     }
@@ -123,7 +130,9 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         login,
         signup,
-        logout
+        logout,
+        loginError,
+        isLoggedIn
       }}
     >
       {children}

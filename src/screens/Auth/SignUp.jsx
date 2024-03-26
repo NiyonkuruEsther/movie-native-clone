@@ -17,6 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "../../schema";
 import { Auth } from "../../context/Auth";
+import FlashMessage from "react-native-flash-message";
 
 const SignUp = ({ navigation }) => {
   const { signup } = useContext(Auth);
@@ -43,6 +44,11 @@ const SignUp = ({ navigation }) => {
     <SafeAreaView
       className={`flex-1  bg-gray-300 dark:bg-bgDarkPrimary  px-[16px] pt-3 pb-5 h-[${heightFull}px]`}
     >
+      <FlashMessage
+        duration={3000}
+        position={"top"}
+        textStyle={{ textAlign: "center" }}
+      />
       <KeyboardAvoidingView behavior="height" className={`flex-1`}>
         <View className={`justify-between h-full `}>
           <View className="flex-row gap-5 items-center">
